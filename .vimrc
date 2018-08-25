@@ -32,9 +32,10 @@ syntax on "Подсветка синтаксиса
 set number "Отображение номеров строк
 set expandtab "За место tab используем пробелы
 set tabstop=2 "В колчистве 2 штуки
-set shiftwidth=2 "автоматический отступ"
+set shiftwidth=2 "автоматический отступ
 set hlsearch "Подсветка резуальтатов поиска
 set incsearch "Включить инкрементальный поиск
+set clipboard=unnamedplus "make all yanking/deleting operations automatically copy to the system clipboard
 
 set keymap=russian-jcukenwin
 set iminsert=0
