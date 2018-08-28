@@ -35,8 +35,14 @@ set expandtab "За место tab используем пробелы
 set tabstop=2 "В колчистве 2 штуки
 set shiftwidth=2 "автоматический отступ
 set hlsearch "Подсветка резуальтатов поиска
+
 set incsearch "Включить инкрементальный поиск
 set clipboard=unnamedplus "make all yanking/deleting operations automatically copy to the system clipboard
+
+" Set block cursor for Cygwin
+let &t_SI.="\e[5 q"
+let &t_SR.="\e[4 q"
+let &t_EI.="\e[1 q"
 
 set keymap=russian-jcukenwin
 set iminsert=0
