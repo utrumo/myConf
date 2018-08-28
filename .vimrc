@@ -65,6 +65,6 @@ nmap <Leader>f <Plug>(easymotion-overwin-f)
 
 " ale
 let g:ale_linters = {
-\   'javascript': ['standard'],
+\   'javascript': ['eslint'],
 \}
 
