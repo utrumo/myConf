@@ -20,7 +20,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'sheerun/vim-polyglot' "Плагин для подсветки синтаксиса
   Plug 'Yggdroot/indentLine' "Плагин для визуализации отступов
 
-  Plug 'w0rp/ale' "Async Linter
+  Plug 'w0rp/ale' " Async Linter for eslint
+  Plug 'editorconfig/editorconfig-vim' " to use .editorconfig
 call plug#end()
 
 "YouCompleteMe
@@ -62,9 +63,3 @@ let g:NERDDefaultAlign = 'left'
 let g:mapleader=','
 map  <Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
-
-" ale
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\}
-
