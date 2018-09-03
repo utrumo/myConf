@@ -38,6 +38,7 @@ set hlsearch "Подсветка резуальтатов поиска
 
 set incsearch "Включить инкрементальный поиск
 set clipboard=unnamedplus "make all yanking/deleting operations automatically copy to the system clipboard
+set colorcolumn=80
 
 " Set block cursor for Cygwin
 let &t_SI.="\e[5 q"
