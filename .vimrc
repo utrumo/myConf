@@ -29,12 +29,14 @@ call plug#end()
   "~/.vim/plugged/YouCompleteMe
   "./install.py --js-completer
 
-syntax on "Подсветка синтаксиса
-set number "Отображение номеров строк
-set expandtab "За место tab используем пробелы
-set tabstop=2 "В колчистве 2 штуки
-set shiftwidth=2 "автоматический отступ
-set hlsearch "Подсветка резуальтатов поиска
+syntax on " add systax illumination
+set nu " add line numbers
+set tabstop=2 "2 space on tab
+set shiftwidth=2 "2 space for << and >>
+set smarttab " delete tabstop spaces in the begining of aline on backspace instead of 1 space
+set expandtab " change tabs on space in insert
+set autoindent " copy indent for new line from previos
+set hlsearch "illumination find results
 
 set incsearch "Включить инкрементальный поиск
 set clipboard=unnamedplus "make all yanking/deleting operations automatically copy to the system clipboard
