@@ -30,17 +30,17 @@ call plug#end()
   "./install.py --js-completer
 
 syntax on " add systax illumination
+set colorcolumn=80
+set clipboard=unnamedplus "make all yanking/deleting operations automatically copy to the system clipboard
 set nu " add line numbers
 set tabstop=2 "2 space on tab
 set shiftwidth=2 "2 space for << and >>
 set smarttab " delete tabstop spaces in the begining of aline on backspace instead of 1 space
 set expandtab " change tabs on space in insert
 set autoindent " copy indent for new line from previos
-set hlsearch "illumination find results
 
+set hlsearch "illumination find results
 set incsearch "Включить инкрементальный поиск
-set clipboard=unnamedplus "make all yanking/deleting operations automatically copy to the system clipboard
-set colorcolumn=80
 
 " Set block cursor for Cygwin
 let &t_SI.="\e[5 q"
