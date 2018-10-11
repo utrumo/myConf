@@ -20,10 +20,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'sheerun/vim-polyglot' "Плагин для подсветки синтаксиса
   Plug 'Yggdroot/indentLine' "Плагин для визуализации отступов
 
+"  Plug 'vim-airline/vim-airline'
   Plug 'w0rp/ale' " Async Linter for eslint
   Plug 'editorconfig/editorconfig-vim' " to use .editorconfig
 call plug#end()
-
 "YouCompleteMe
   "sudo apt-get install python-dev python3-dev
   "~/.vim/plugged/YouCompleteMe
@@ -43,14 +43,14 @@ set hlsearch "illumination find results
 set incsearch "Включить инкрементальный поиск
 
 " Set block cursor for Cygwin
-let &t_SI.="\e[5 q"
-let &t_SR.="\e[4 q"
-let &t_EI.="\e[1 q"
+" let &t_SI.="\e[5 q"
+" let &t_SR.="\e[4 q"
+"let &t_EI.="\e[1 q"
 
-set keymap=russian-jcukenwin
-set iminsert=0
-set imsearch=0
-imap <C-F> <C-^>
+ set keymap=russian-jcukenwin
+ imap <C-F> <C-^>
+ set iminsert=0
+ set imsearch=0
 
 "onedark
 silent! colorscheme onedark "silent! - for fix error 'cant find color scheme onedark on first install
@@ -68,7 +68,8 @@ map <C-n> :NERDTreeToggle<CR>
 let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 
+" default leader is \
 "vim-easymotion
-let g:mapleader=','
+" let g:mapleader=','
 map  <Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
