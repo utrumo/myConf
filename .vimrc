@@ -24,7 +24,6 @@ call plug#begin('~/.vim/plugged')
 
   "colorschemes
   Plug 'joshdick/onedark.vim' "Тема анологичная Atom
-  silent! colorscheme onedark "silent! - for fix error 'cant find color scheme onedark on first install
 
   Plug 'sheerun/vim-polyglot' "Плагин для подсветки синтаксиса
   syntax on " add systax illumination
@@ -53,6 +52,7 @@ call plug#begin('~/.vim/plugged')
   " for work need 'flow init' in root of project
   Plug 'steelsojka/deoplete-flow'
 call plug#end()
+silent! colorscheme onedark "silent! - for fix error 'cant find color scheme onedark on first install
 
 set colorcolumn=80
 set clipboard=unnamedplus "make all yanking/deleting operations automatically copy to the system clipboard
