@@ -20,14 +20,29 @@ call plug#begin('~/.vim/plugged')
   Plug 'sheerun/vim-polyglot' "Плагин для подсветки синтаксиса
   Plug 'Yggdroot/indentLine' "Плагин для визуализации отступов
 
-"  Plug 'vim-airline/vim-airline'
+  " Plug 'vim-airline/vim-airline'
   Plug 'w0rp/ale' " Async Linter for eslint
   Plug 'editorconfig/editorconfig-vim' " to use .editorconfig
+
+  " Deoplete autocomplete
+  if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+  endif
+  let g:deoplete#enable_at_startup = 1
+
+  " deoplete flow plugin
+  Plug 'steelsojka/deoplete-flow'
+  " npm install -g flow-bin
+  " for work need 'flow init' in root of project
+
+  " Move up and down in autocomplete with <c-j> and <c-k>
+  inoremap <expr> <c-j> ("\<C-n>")
+  inoremap <expr> <c-k> ("\<C-p>")
 call plug#end()
-"YouCompleteMe
-  "sudo apt-get install python-dev python3-dev
-  "~/.vim/plugged/YouCompleteMe
-  "./install.py --js-completer
 
 syntax on " add systax illumination
 set colorcolumn=80
@@ -73,3 +88,4 @@ let g:NERDDefaultAlign = 'left'
 " let g:mapleader=','
 map  <Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
+
