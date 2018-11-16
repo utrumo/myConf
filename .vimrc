@@ -68,7 +68,8 @@ call plug#begin('~/.vim/plugged')
 
   Plug 'ludovicchabant/vim-gutentags'
   let g:gutentags_project_root = ['node_modules', 'vendor']
-  " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  let g:gutentags_cache_dir = '~/.vim/gutentags'
+
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
   Plug 'junegunn/fzf.vim' 
 
