@@ -82,6 +82,10 @@ call plug#begin('~/.vim/plugged')
 
   Plug 'sheerun/vim-polyglot' "Плагин для подсветки синтаксиса
   syntax on
+
+  Plug 'alvan/vim-closetag' " Autoclose html tags by >
+  let g:closetag_filenames = '*.html,*.js,*.php'
+  let g:closetag_close_shortcut = '<leader>>'
 call plug#end()
 
 silent! colorscheme onedark "silent! - for fix error 'cant find color scheme onedark on first install
