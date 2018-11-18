@@ -7,88 +7,115 @@ endif
 
 " Vim plugin manager vim-plug To install new package :PlugInstall
 call plug#begin('~/.vim/plugged')
-  " Plug 'kien/ctrlp.vim' " Поиск по проекту ctrl+p
-
-  " Plug 'scrooloose/nerdtree' " Файловый менеджер
-  " map <C-n> :NERDTreeToggle<CR>
-
   Plug 'scrooloose/nerdcommenter' " Для быстрого комментирования
-  let g:NERDSpaceDelims = 1
-  let g:NERDDefaultAlign = 'left'
-
   Plug 'easymotion/vim-easymotion' " Крутая навигация по проекту
-  " map  <Leader>f <Plug>(easymotion-bd-f)
-  " nmap <Leader>f <Plug>(easymotion-overwin-f)
-
   Plug 'w0rp/ale' " Async Linter for eslint
-  let g:ale_linters = {
-  \ 'php': ['phpcs']
-  \ }
-  let g:ale_fixers = {
-  \ 'php': ['phpcbf']
-  \ }
-  let g:ale_php_phpcs_standard = 'PSR2'
-  let g:ale_php_phpcbf_standard = 'PSR2'
-  " let g:ale_completion_enabled = 1
-  " let g:ale_php_langserver_executable = $HOME.'/.config/composer/vendor/bin/php-language-server.php'
-
   " Plug 'vim-airline/vim-airline'
-
   Plug 'autozimu/LanguageClient-neovim', {
   \ 'branch': 'next',
   \ 'do': 'bash install.sh',
   \ }
-	set hidden " Required for operations modifying multiple buffers like rename.
-	let g:LanguageClient_serverCommands = {
-  \ 'javascript': ['javascript-typescript-stdio'],
-  \ 'php' : ['tags']
-  \ }
-	nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-	nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-	nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
-  " Deoplete autocomplete
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  let g:deoplete#enable_at_startup = 1
-  " hide preview window after CompleteDone
-  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
-  " Move up and down in autocomplete with <c-j> and <c-k>
-  " inoremap <expr> <c-j> ("\<c-n>")
-  " inoremap <expr> <c-k> ("\<c-p>")
-
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " autocomplete
   Plug 'joshdick/onedark.vim' " Тема анологичная Atom
   Plug 'Yggdroot/indentLine' "Плагин для визуализации отступов
-  let g:indentLine_leadingSpaceEnabled = 1
   Plug 'airblade/vim-gitgutter' " Добавляет отображение изменённых в коммитах строчках
   Plug 'machakann/vim-sandwich'
-  
+  Plug 'alvan/vim-closetag' " Autoclose html tags by >
   Plug 'jiangmiao/auto-pairs' " Добавляет закрывающие скобки
   Plug 'editorconfig/editorconfig-vim' " to use .editorconfig
-
   Plug 'ludovicchabant/vim-gutentags'
-  let g:gutentags_project_root = ['node_modules', 'vendor']
-  let g:gutentags_cache_dir = '~/.vim/gutentags'
-
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
   Plug 'junegunn/fzf.vim' 
-
-	" FZF (replaces Ctrl-P, FuzzyFinder and Command-T)
-	nmap ; :Buffers<CR>
-	nmap <Leader>r :Tags<CR>
-	nmap <Leader>t :Files<CR>
-	nmap <Leader>a :Rg!<CR>
-	nmap <Leader>c :Colors<CR>
-
   Plug 'sheerun/vim-polyglot' "Плагин для подсветки синтаксиса
-  syntax on
-
-  Plug 'alvan/vim-closetag' " Autoclose html tags by >
-  let g:closetag_filenames = '*.html,*.js,*.php'
-  let g:closetag_close_shortcut = '<leader>>'
 call plug#end()
 
-silent! colorscheme onedark "silent! - for fix error 'cant find color scheme onedark on first install
+" nerdcommenter
+let g:NERDSpaceDelims = 1
+let g:NERDDefaultAlign = 'left'
+
+" vim-easymotion
+" map  <Leader>f <Plug>(easymotion-bd-f)
+" nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" ale
+let g:ale_linters = {
+\ 'php': ['phpcs']
+\ }
+let g:ale_fixers = {
+\ 'php': ['phpcbf']
+\ }
+let g:ale_php_phpcs_standard = 'PSR2'
+let g:ale_php_phpcbf_standard = 'PSR2'
+" let g:ale_completion_enabled = 1
+" let g:ale_php_langserver_executable = $HOME.'/.config/composer/vendor/bin/php-language-server.php'
+
+" LanguageClient-neovim
+set hidden " Required for operations modifying multiple buffers like rename.
+let g:LanguageClient_serverCommands = {
+\ 'javascript': ['javascript-typescript-stdio'],
+\ 'php' : ['tags']
+\ }
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
+" hide preview window after CompleteDone
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" Move up and down in autocomplete with <c-j> and <c-k>
+" inoremap <expr> <c-j> ("\<c-n>")
+" inoremap <expr> <c-k> ("\<c-p>")
+
+" onedark
+silent! colorscheme onedark "silent! - for fix error 'cant find color scheme onedark on first launch
+
+" indentLine
+let g:indentLine_leadingSpaceEnabled = 1
+
+" vim-sandwich
+" let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+" let g:sandwich#recipes += [
+"     \   {
+"     \     'buns'    : ['TagInput(1)', 'TagInput(0)'],
+"     \     'expr'    : 1,
+"     \     'filetype': ['html'],
+"     \     'kind'    : ['add', 'replace'],
+"     \     'action'  : ['add'],
+"     \     'input'   : ['t'],
+"     \   },
+"     \ ]
+
+" function! TagInput(is_head) abort
+"   if a:is_head
+"     let s:TagLast = input('Tag: ')
+"     if s:TagLast !=# ''
+"       let tag = printf('<%s>', s:TagLast)
+"     else
+"       throw 'OperatorSandwichCancel'
+"     endif
+"   else
+"     let tag = printf('</%s>', matchstr(s:TagLast, '^\a[^[:blank:]>/]*'))
+"   endif
+"   return tag
+" endfunction
+
+" vim-closetag
+let g:closetag_filenames = '*.html,*.js,*.php'
+let g:closetag_close_shortcut = '<leader>>'
+
+" vim-gutentags
+let g:gutentags_project_root = ['node_modules', 'vendor']
+let g:gutentags_cache_dir = '~/.vim/gutentags'
+
+" fzf
+nmap ; :Buffers<CR>
+nmap <Leader>r :Tags<CR>
+nmap <Leader>t :Files<CR>
+nmap <Leader>a :Rg!<CR>
+nmap <Leader>c :Colors<CR>
+
+" vim settings:
 set colorcolumn=80
 set number " add line numbers
 
@@ -108,10 +135,11 @@ set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
 " imap <C-F> <C-^>
-"
+
 set mouse=a
 tnoremap <Esc> <C-\><C-n>
 set confirm " disabled error on exit and ask to save
+
 " set clipboard=unnamedplus "make all yanking/deleting operations automatically copy to the system clipboard
 " autocmd VimLeave * call system("echo -n $'" . escape(getreg(), "'") . "' | xsel -ib")
 
@@ -128,3 +156,4 @@ set confirm " disabled error on exit and ask to save
 " let &t_SI.="\e[5 q"
 " let &t_SR.="\e[4 q"
 " let &t_EI.="\e[1 q"
+
