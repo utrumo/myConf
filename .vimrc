@@ -53,7 +53,8 @@ let g:ale_php_phpcbf_standard = 'PSR2'
 set hidden " Required for operations modifying multiple buffers like rename.
 let g:LanguageClient_serverCommands = {
 \ 'javascript': ['javascript-typescript-stdio'],
-\ 'php' : ['tags']
+\ 'javascript.jsx': ['javascript-typescript-stdio'],
+\ 'php': ['php', $HOME.'/.config/composer/vendor/bin/php-language-server.php']
 \ }
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
