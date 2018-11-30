@@ -26,7 +26,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'ludovicchabant/vim-gutentags'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
   Plug 'junegunn/fzf.vim' 
-  Plug 'sheerun/vim-polyglot' "Плагин для подсветки синтаксиса
+  Plug 'sheerun/vim-polyglot' " Плагин для подсветки синтаксиса
+  Plug 'tpope/vim-eunuch' " Adds :Move command
 call plug#end()
 
 " nerdcommenter
@@ -34,8 +35,8 @@ let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 
 " vim-easymotion
-" map  <Leader>f <Plug>(easymotion-bd-f)
-" nmap <Leader>f <Plug>(easymotion-overwin-f)
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
 
 " ale
 let g:ale_linters = {
@@ -56,6 +57,7 @@ let g:LanguageClient_serverCommands = {
 \ 'javascript.jsx': ['javascript-typescript-stdio'],
 \ 'php': ['php', $HOME.'/.config/composer/vendor/bin/php-language-server.php']
 \ }
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
@@ -110,7 +112,7 @@ let g:gutentags_project_root = ['node_modules', 'vendor']
 let g:gutentags_cache_dir = '~/.vim/gutentags'
 
 " fzf
-nmap ; :Buffers<CR>
+nmap <Leader>; :Buffers<CR>
 nmap <Leader>r :Tags<CR>
 nmap <Leader>t :Files<CR>
 nmap <Leader>a :Rg!<CR>
@@ -139,6 +141,7 @@ set imsearch=0
 
 set mouse=a
 tnoremap <Esc> <C-\><C-n>
+tnoremap <C-[> <C-\><C-n>
 set confirm " disabled error on exit and ask to save
 
 " set clipboard=unnamedplus "make all yanking/deleting operations automatically copy to the system clipboard
