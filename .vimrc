@@ -30,7 +30,21 @@ call plug#begin('~/.vim/plugged')
   Plug 'sheerun/vim-polyglot' " Плагин для подсветки синтаксиса
   Plug 'tpope/vim-eunuch' " Adds :Move command
   Plug 'qpkorr/vim-bufkill'
+  Plug 'jeffkreeftmeijer/vim-numbertoggle'
+  Plug 'wesQ3/vim-windowswap'
 call plug#end()
+
+" Ctrl+l to toggle rnu
+function! g:ToggleNuMode()
+  if(&relativenumber == 1)
+    set nornu
+  else
+    set rnu
+  endif
+endfunc
+
+map <C-l> :call g:ToggleNuMode()<CR>
+nmap <Leader>l :call g:ToggleNuMode()<CR>
 
 " nerdcommenter
 let g:NERDSpaceDelims = 1
