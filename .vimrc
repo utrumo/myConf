@@ -18,7 +18,6 @@ Plug 'easymotion/vim-easymotion' " Крутая навигация по прое
 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'itchyny/lightline.vim'
-Plug 'iamcco/diagnostic-languageserver', { 'do': 'yarn install --frozen-lockfile' }
 Plug 'Shougo/neco-vim'
 Plug 'neoclide/coc-neco'
 
@@ -49,6 +48,7 @@ let g:coc_global_extensions = [
 \  'coc-stylelint',
 \  'coc-emmet',
 \  'coc-html',
+\  'coc-diagnostic',
 \ ]
 
 " nerdcommenter
@@ -80,20 +80,20 @@ nmap <Leader>t :Files<CR>
 nmap <Leader>a :Rg!<CR>
 nmap <Leader>c :Colors<CR>
 
-inoremap <Leader>nm <C-O>:call SearchInNodeModules()<CR>
+inoremap <Leader>nm <C-O>:call FindInNodeModules()<CR>
 
-function! SearchInNodeModules()
-  let modulesPath = FindRootDirectory() . "/node_modules"
-  if !isdirectory(modulesPath)
-    echo "Not found: " . modulesPath
+function! FindInNodeModules()
+  let nodeModulesPath = FindRootDirectory() . "/node_modules"
+  if !isdirectory(nodeModulesPath)
+    echo nodeModulesPath . " is not found"
     return
   endif
-  " \ 'prefix': '^.*$',
   :call fzf#vim#complete({
+  \ 'prefix': "\k*$",
   \ 'source': "find \| sed 's/^..//'",
   \ "reducer": {lines -> join(lines, ', ')},
   \ "options": "--multi --reverse",
-  \ "dir": modulesPath,
+  \ "dir": nodeModulesPath,
   \ "down": 20,
   \})
 endfunction
@@ -233,7 +233,7 @@ fu! s:applyCocSettings()
   nmap <leader>a  <Plug>(coc-codeaction-selected)
 
   " Remap for do codeAction of current line
-  nmap <leader>ac  <Plug>(coc-codeaction)
+  nmap <leader>ac  <Plug>(coc-codeaction)SWWsdkj
   " Fix autofix problem of current line
   nmap <leader>qf  <Plug>(coc-fix-current)
 
