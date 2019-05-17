@@ -22,23 +22,23 @@ Plug 'Shougo/neco-vim'
 Plug 'neoclide/coc-neco'
 
 Plug 'joshdick/onedark.vim', { 'do': ':colorscheme onedark' } " Тема анологичная Atom
-Plug 'Yggdroot/indentLine' "Плагин для визуализации отступов
+Plug 'Yggdroot/indentLine' " Плагин для визуализации отступов
 Plug 'airblade/vim-gitgutter' " Добавляет отображение изменённых в коммитах строчках
 Plug 'machakann/vim-sandwich'
 Plug 'alvan/vim-closetag' " Autoclose html tags by >
 Plug 'mattn/emmet-vim'
 Plug 'jiangmiao/auto-pairs' " Добавляет закрывающие скобки
 Plug 'editorconfig/editorconfig-vim' " to use .editorconfig
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter' 
 Plug 'sheerun/vim-polyglot' " Плагин для подсветки синтаксиса
 Plug 'tpope/vim-eunuch' " Adds :Move command
 Plug 'qpkorr/vim-bufkill'
-Plug 'jeffkreeftmeijer/vim-numbertoggle' "Toggles between hybrid and absolute line numbers automaticallly 
+Plug 'jeffkreeftmeijer/vim-numbertoggle' " Toggles between hybrid and absolute line numbers automaticallly 
 Plug 'wesQ3/vim-windowswap'
 cal plug#end()
-
 
 let g:coc_global_extensions = [
 \  'coc-json',
@@ -67,6 +67,10 @@ let g:closetag_filenames = '*.html,*.js,*.php'
 let g:closetag_close_shortcut = '<leader>>'
 
 " onedark
+if (has("termguicolors"))
+  set termguicolors
+endif
+let g:onedark_terminal_italics=1
 silent! colorscheme onedark 
 
 " vim-rooter
@@ -89,7 +93,6 @@ function! FindInNodeModules()
     return
   endif
   :call fzf#vim#complete({
-  \ 'prefix': "\k*$",
   \ 'source': "find \| sed 's/^..//'",
   \ "reducer": {lines -> join(lines, ', ')},
   \ "options": "--multi --reverse",
@@ -132,7 +135,7 @@ set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
 
-set scrolloff=1
+set scrolloff=5
 
 set mouse=a
 tnoremap <Esc> <C-\><C-n>
