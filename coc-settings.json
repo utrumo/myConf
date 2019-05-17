@@ -1,6 +1,6 @@
 {
   "diagnostic.signOffset": 9999999,
-  "eslint.filetypes": ["javascript", "javascriptreact", "typescript"],
+  "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "vue"],
   "diagnostic-languageserver.filetypes": {
     "php": "phpcs"
   }
