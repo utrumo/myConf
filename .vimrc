@@ -16,7 +16,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdcommenter' " Для быстрого комментирования
 Plug 'easymotion/vim-easymotion' " Крутая навигация по проекту
 
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'do': './install.sh'}
 Plug 'itchyny/lightline.vim'
 Plug 'Shougo/neco-vim'
 Plug 'neoclide/coc-neco'
@@ -49,6 +49,7 @@ let g:coc_global_extensions = [
 \  'coc-emmet',
 \  'coc-html',
 \  'coc-diagnostic',
+\  'coc-vetur',
 \ ]
 
 " nerdcommenter
@@ -60,7 +61,7 @@ map  <Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
 
 " indentLine
-let g:indentLine_leadingSpaceEnabled = 1
+" let g:indentLine_leadingSpaceEnabled = 1
 
 " vim-closetag
 let g:closetag_filenames = '*.html,*.js,*.php'
