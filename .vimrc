@@ -16,7 +16,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdcommenter' " Для быстрого комментирования
 Plug 'easymotion/vim-easymotion' " Крутая навигация по проекту
 
-Plug 'neoclide/coc.nvim', {'do': './install.sh'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'itchyny/lightline.vim'
 Plug 'Shougo/neco-vim'
 Plug 'neoclide/coc-neco'
@@ -32,7 +32,7 @@ Plug 'editorconfig/editorconfig-vim' " to use .editorconfig
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
-Plug 'airblade/vim-rooter' 
+" Plug 'airblade/vim-rooter' 
 Plug 'sheerun/vim-polyglot' " Плагин для подсветки синтаксиса
 Plug 'tpope/vim-eunuch' " Adds :Move command
 Plug 'qpkorr/vim-bufkill'
@@ -75,8 +75,8 @@ let g:onedark_terminal_italics=1
 silent! colorscheme onedark 
 
 " vim-rooter
-let g:rooter_patterns = ['node_modules/', '.git/']
-let g:rooter_manual_only = 1
+" let g:rooter_patterns = ['node_modules/', '.git/']
+" let g:rooter_manual_only = 0
 
 " fzf
 nmap <Leader>; :Buffers<CR>
@@ -85,22 +85,22 @@ nmap <Leader>t :Files<CR>
 nmap <Leader>a :Rg!<CR>
 nmap <Leader>c :Colors<CR>
 
-inoremap <Leader>nm <C-O>:call FindInNodeModules()<CR>
+" inoremap <Leader>nm <C-O>:call FindInNodeModules()<CR>
 
-function! FindInNodeModules()
-  let nodeModulesPath = FindRootDirectory() . "/node_modules"
-  if !isdirectory(nodeModulesPath)
-    echo nodeModulesPath . " is not found"
-    return
-  endif
-  :call fzf#vim#complete({
-  \ 'source': "find \| sed 's/^..//'",
-  \ "reducer": {lines -> join(lines, ', ')},
-  \ "options": "--multi --reverse",
-  \ "dir": nodeModulesPath,
-  \ "down": 20,
-  \})
-endfunction
+" function! FindInNodeModules()
+"   let nodeModulesPath = FindRootDirectory() . "/node_modules"
+"   if !isdirectory(nodeModulesPath)
+"     echo nodeModulesPath . " is not found"
+"     return
+"   endif
+"   :call fzf#vim#complete({
+"   \ 'source': "find \| sed 's/^..//'",
+"   \ "reducer": {lines -> join(lines, ', ')},
+"   \ "options": "--multi --reverse",
+"   \ "dir": nodeModulesPath,
+"   \ "down": 20,
+"   \})
+" endfunction
 
 " vim settings:
 set colorcolumn=80
@@ -279,4 +279,7 @@ fu! s:applyCocSettings()
   nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
   " Resume latest coc list
   nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+  " map eslint autofix
+  nnoremap <silent> <leader>ef :CocCommand eslint.executeAutofix<CR>
 endf
