@@ -288,5 +288,8 @@ fu! s:applyCocSettings()
 
   " map eslint autofix
   nnoremap <silent> <leader>ef :CocCommand eslint.executeAutofix<CR>
+
+  " fix highlighting for files with multiple languages (like vue)
+  autocmd FileType vue syntax sync fromstart
 endf
 call s:applyCocSettings() " temporary lightline fix
