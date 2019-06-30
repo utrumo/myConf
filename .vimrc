@@ -125,14 +125,13 @@ nmap <Leader>c :Colors<CR>
 set colorcolumn=80
 set number " add line numbers
 
-fu! g:ToggleNuMode()
+function! g:ToggleNuMode()
   if(&relativenumber == 1)
     set nornu
-  el
+  else
     set rnu
-  en
-endf
-
+  endif
+endfunction
 nmap <Leader>l :call g:ToggleNuMode()<CR> " to toggle rnu
 
 " set new split positions
@@ -307,6 +306,11 @@ fu! s:applyCocSettings()
 
   " map eslint autofix
   nnoremap <silent> <leader>ef :CocCommand eslint.executeAutofix<CR>
+
+  " map stylelint autofix
+  nnoremap <silent> <leader>sf 
+    \ :execute "!npx stylelint --fix " . expand('%')<bar>
+    \ :echon "fixed"<CR>
 
   " fix highlighting for files with multiple languages (like vue)
   autocmd FileType vue syntax sync fromstart
