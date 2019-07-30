@@ -284,6 +284,11 @@ fu! s:applyCocSettings()
         \ },
         \ }
 
+  " reload lightline settings
+  call lightline#disable() | call lightline#enable()
+
+  " Use auocmd to force lightline update.
+  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 
   " Using CocList
@@ -315,4 +320,3 @@ fu! s:applyCocSettings()
   " fix highlighting for files with multiple languages (like vue)
   autocmd FileType vue syntax sync fromstart
 endf
-call s:applyCocSettings() " temporary lightline fix
