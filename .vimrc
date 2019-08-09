@@ -168,6 +168,25 @@ map <LEADER>pi :PlugInstall<CR>
 map <LEADER>pu :PlugUpdate<CR>
 map <LEADER>pc :PlugClean<CR>
 
+" Hack for lit-element / lit-html
+nnoremap <silent><C-h> :call <SID>detectRegionFileType()<CR>
+function! s:detectRegionFileType()
+  let fileExt = expand('%:e')
+  if fileExt != 'js'
+    echo 'not a js file'
+    return
+  else
+    echo 'filetype detected'
+  endif
+
+  if searchpair('<style', '', '</style>', 'bnW')
+    set ft=css
+  elseif searchpair('html`', '', '\(html\)\@<!`', 'bnW')
+    set ft=html
+  else
+    set ft=javascript
+  endif
+endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " coc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -319,4 +338,5 @@ fu! s:applyCocSettings()
 
   " fix highlighting for files with multiple languages (like vue)
   autocmd FileType vue syntax sync fromstart
+  autocmd FileType javascript syntax sync fromstart
 endf
