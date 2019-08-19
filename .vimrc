@@ -22,7 +22,6 @@ Plug 'Shougo/neco-vim'
 Plug 'neoclide/coc-neco'
 
 Plug 'joshdick/onedark.vim', { 'do': ':colorscheme onedark' } " Тема анологичная Atom
-Plug 'Yggdroot/indentLine' " Плагин для визуализации отступов
 Plug 'airblade/vim-gitgutter' " Добавляет отображение изменённых в коммитах строчках
 Plug 'machakann/vim-sandwich'
 Plug 'alvan/vim-closetag' " Autoclose html tags by >
@@ -50,6 +49,7 @@ let g:coc_global_extensions = [
 \  'coc-html',
 \  'coc-diagnostic',
 \  'coc-vetur',
+\  'coc-highlight',
 \ ]
 
 " nerdcommenter
@@ -78,9 +78,6 @@ endfunction
 " vim-easymotion
 map  <Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
-
-" indentLine
-" let g:indentLine_leadingSpaceEnabled = 1
 
 " vim-closetag
 let g:closetag_filenames = '*.html,*.js,*.php'
@@ -145,6 +142,8 @@ set expandtab " insert space characters whenever the tab key is pressed
 
 set autoindent " copy indent for new line from previos
 set smartindent
+set list listchars=eol:↲,tab:»\ ,space:.,trail:•,extends:›,precedes:‹,conceal:*,nbsp:␣
+let &showbreak='↳ '
 
 set ignorecase
 set incsearch " Включить инкрементальный поиск
