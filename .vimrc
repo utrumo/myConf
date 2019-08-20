@@ -178,7 +178,8 @@ function! s:detectRegionFileType()
     echo 'filetype detected'
   endif
 
-  if searchpair('<style', '', '</style>', 'bnW')
+  if searchpair('css`', '', '\(css\)\@<!`', 'bnW') ||
+  \  searchpair('<style', '', '</style>', 'bnW')
     set ft=css
   elseif searchpair('html`', '', '\(html\)\@<!`', 'bnW')
     set ft=html
