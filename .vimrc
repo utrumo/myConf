@@ -83,12 +83,27 @@ nmap <Leader>f <Plug>(easymotion-overwin-f)
 let g:closetag_filenames = '*.html,*.js,*.php'
 let g:closetag_close_shortcut = '<leader>>'
 
+" Show special / NonText keys 
+set list listchars=eol:↲,tab:»\ ,space:·,trail:•,extends:›,precedes:‹,conceal:*,nbsp:␣
+let &showbreak='↳ '
+
 " onedark
 if (has("termguicolors"))
   set termguicolors
 endif
+
+if (has("autocmd"))
+  augroup colorextend
+    autocmd!
+    " Defoult NonText color:
+    " autocmd ColorScheme * call onedark#extend_highlight("NonText", { "fg": { "gui": "#3B4048" } })
+    " 25% Lighter:
+    autocmd ColorScheme * call onedark#extend_highlight("NonText", { "fg": { "gui": "#656E7C" } })
+  augroup END
+endif
+
 let g:onedark_terminal_italics=1
-silent! colorscheme onedark 
+colorscheme onedark 
 
 " vim-rooter
 " let g:rooter_patterns = ['node_modules/', '.git/']
@@ -142,8 +157,6 @@ set expandtab " insert space characters whenever the tab key is pressed
 
 set autoindent " copy indent for new line from previos
 set smartindent
-set list listchars=eol:↲,tab:»\ ,space:.,trail:•,extends:›,precedes:‹,conceal:*,nbsp:␣
-let &showbreak='↳ '
 
 set ignorecase
 set incsearch " Включить инкрементальный поиск
