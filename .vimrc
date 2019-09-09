@@ -115,6 +115,7 @@ nmap <Leader>r :Tags<CR>
 nmap <Leader>t :Files<CR>
 nmap <Leader>a :Rg!<CR>
 nmap <Leader>c :Colors<CR>
+nmap <Leader>m :Marks<CR>
 
 " inoremap <Leader>nm <C-O>:call FindInNodeModules()<CR>
 
