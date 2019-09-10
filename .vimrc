@@ -2,14 +2,8 @@
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  au VimEnter * PlugInstall --sync | so $MYVIMRC
-en
-
-" autload changes in conf file
-au! BufWritePost .vimrc,init.vim nested so $MYVIMRC
-
-" load coc settnigs only if plugin installed
-au! User CocNvimInit call s:applyCocSettings()
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 " Vim plugin manager vim-plug To install new package :PlugInstall
 call plug#begin('~/.vim/plugged')
@@ -51,6 +45,9 @@ let g:coc_global_extensions = [
 \  'coc-vetur',
 \  'coc-highlight',
 \ ]
+
+" autload changes in conf file
+autocmd! BufWritePost .vimrc,init.vim nested source $MYVIMRC
 
 " nerdcommenter
 let g:NERDSpaceDelims = 1
@@ -204,7 +201,9 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " coc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-fu! s:applyCocSettings()
+" load coc settnigs only if plugin installed
+autocmd! User CocNvimInit call s:applyCocSettings()
+function! s:applyCocSettings()
   " if hidden is not set, TextEdit might fail.
   set hidden
 
