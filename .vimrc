@@ -11,6 +11,7 @@ Plug 'scrooloose/nerdcommenter' " Для быстрого комментиров
 Plug 'easymotion/vim-easymotion' " Крутая навигация по проекту
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc-stylelint', {'tag': '1.1.0', 'do': 'rm ./yarn.lock && yarn'}
 Plug 'itchyny/lightline.vim'
 Plug 'Shougo/neco-vim'
 Plug 'neoclide/coc-neco'
@@ -45,6 +46,10 @@ let g:coc_global_extensions = [
 \  'coc-vetur',
 \  'coc-highlight',
 \ ]
+
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 " autload changes in conf file
 autocmd! BufWritePost .vimrc,init.vim nested source $MYVIMRC
