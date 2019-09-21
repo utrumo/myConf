@@ -34,12 +34,13 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle' " Toggles between hybrid and absolute l
 Plug 'wesQ3/vim-windowswap'
 cal plug#end()
 
+" \  'coc-stylelint',
 let g:coc_global_extensions = [
 \  'coc-json',
 \  'coc-tsserver',
 \  'coc-eslint',
 \  'coc-css',
-\  'coc-stylelint',
+\  'coc-diagnostic',
 \  'coc-emmet',
 \  'coc-html',
 \  'coc-diagnostic',
@@ -179,6 +180,8 @@ set confirm " disabled error on exit and ask to save
 " Open vim config
 map <LEADER>oc :e ~/.vimrc<CR>
 map <LEADER>occ :CocConfig<CR>
+map <LEADER>ocl :CocOpenLog<CR>
+map <LEADER>oci :CocInfo<CR>
 map <LEADER>pi :PlugInstall<CR>
 map <LEADER>pu :PlugUpdate<CR>
 map <LEADER>pc :PlugClean<CR>
