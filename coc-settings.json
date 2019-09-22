@@ -2,6 +2,35 @@
   "diagnostic.signOffset": 9999999,
   "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "vue"],
   "diagnostic-languageserver.filetypes": {
-    "php": "phpcs"
+    "php": "phpcs",
+    "css": "stylelint",
+    "javascript": "stylelint"
+  },
+    "diagnostic-languageserver.linters": {
+    "stylelint": {
+      "command": "./node_modules/.bin/stylelint",
+      "rootPatterns": [".git"],
+      "isStdout": true,
+      "isStderr": false,
+      "debounce": 100,
+      "args": ["--formatter",  "unix"],
+      "offsetLine": 0,
+      "offsetColumn": 0,
+      "sourceName": "stylelint",
+      "formatLines": 1,
+      "formatPattern": [
+        "^[^:]+:(\\d+):(\\d+):\\s(.+)\\s\\[(\\w+)\\]$",
+        {
+          "line": 1,
+          "column": 2,
+          "message": 3,
+          "security": 4
+        }
+      ],
+      "securities": {
+        "error": "error",
+        "warning": "warning"
+      }
+    }
   }
 }
