@@ -138,7 +138,7 @@ nmap <Leader>m :Marks<CR>
 " endfunction
 
 " vim settings:
-set colorcolumn=80
+set colorcolumn=100
 set number " add line numbers
 
 function! g:ToggleNuMode()
