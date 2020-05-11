@@ -1,9 +1,77 @@
 {
   "diagnostic.signOffset": 9999999,
   "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "vue"],
+  "diagnostic-languageserver.debug": true,
+  "diagnostic-languageserver.trace.server": "verbose",
   "diagnostic-languageserver.filetypes": {
     "php": "phpcs",
     "css": "stylelint",
-    "javascript": "stylelint"
-  }
+    "javascript": "stylelint",
+    "yaml": "ansible-lint",
+    "off_yaml": "yamllint",
+    "asterisk": "asterisklint"
+  },
+  "diagnostic-languageserver.linters": {
+    "ansible-lint": {
+      "command": "ansible-lint",
+      "isStderr": false,
+      "isStdout": true,
+      "args": [
+        "--parseable-severity"
+      ],
+      "rootPatterns": ["ansible.cfg"],
+      "debounce": 100,
+      "offsetLine": 0,
+      "offsetColumn": 0,
+      "sourceName": "ansible-lint",
+      "formatLines": 1,
+      "formatPattern": [
+        "^[^:]+:(\\d+):\\s(\\S+)\\s\\[(\\S+)\\]\\s(.*)$",
+        {
+          "line": 1,
+          "security": 3,
+          "message": [2, " [",  3, "] ", 4]
+        }
+      ],
+      "securities": {
+        "VERY_HIGHT": "error",
+        "HIGHT": "error",
+        "MEDIUM": "warning",
+        "LOW": "warning",
+        "VERY_LOW": "warning",
+        "INFO": "info"
+      }
+    },
+    "yamllint": {
+      "command": "yamllint",
+      "args": ["%filename"],
+      "offsetLine": 0,
+      "sourceName": "yamllint",
+      "formatPattern": [
+        "^\\s+(\\S+):(\\S+)\\s+(\\S+)\\s+(.*)$",
+        {
+          "line": 1,
+          "column": 2,
+          "security": 3,
+          "message": [3, " ", 4]
+        }
+      ]
+    },
+    "asterisklint": {
+      "command": "asterisklint",
+      "isStderr": true,
+      "args": ["dialplan-check", "%filepath", "--func-odbc", "../templates/func_odbc.conf.j2"],
+//      "args": ["dialplan-check", "%filepath"],
+      "sourceName": "asterisklint",
+      "formatPattern": [
+        "^[^:]+:(\\d+)\\s(.*)",
+        {
+          "line": 1,
+          "message": 2
+        }
+      ]
+    }
+  },
+  "python.jediEnabled": false,
+  "javascript.preferences.importModuleSpecifierEnding": "js"
 }

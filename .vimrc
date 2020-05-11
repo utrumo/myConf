@@ -12,7 +12,7 @@ Plug 'easymotion/vim-easymotion' " Крутая навигация по прое
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'neoclide/coc-stylelint', {'tag': '1.1.0', 'do': 'rm ./yarn.lock && yarn'}
-Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
 Plug 'Shougo/neco-vim'
 Plug 'neoclide/coc-neco'
 
@@ -26,13 +26,13 @@ Plug 'editorconfig/editorconfig-vim' " to use .editorconfig
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
-" Plug 'airblade/vim-rooter' 
+Plug 'airblade/vim-rooter' 
 Plug 'sheerun/vim-polyglot' " Плагин для подсветки синтаксиса
 Plug 'tpope/vim-eunuch' " Adds :Move command
 Plug 'qpkorr/vim-bufkill'
 Plug 'jeffkreeftmeijer/vim-numbertoggle' " Toggles between hybrid and absolute line numbers automaticallly 
 Plug 'wesQ3/vim-windowswap'
-cal plug#end()
+call plug#end()
 
 " \  'coc-stylelint',
 let g:coc_global_extensions = [
@@ -46,6 +46,9 @@ let g:coc_global_extensions = [
 \  'coc-diagnostic',
 \  'coc-vetur',
 \  'coc-highlight',
+\  'coc-yaml',
+\  'coc-browser',
+\  'coc-python'
 \ ]
 
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
@@ -109,8 +112,8 @@ let g:onedark_terminal_italics=1
 colorscheme onedark 
 
 " vim-rooter
-" let g:rooter_patterns = ['node_modules/', '.git/']
-" let g:rooter_manual_only = 0
+let g:rooter_patterns = ['Vagrantfile', 'node_modules/', '.git/']
+" let g:rooter_manual_only = 1
 
 " fzf
 nmap <Leader>; :Buffers<CR>
@@ -139,6 +142,8 @@ nmap <Leader>m :Marks<CR>
 
 " vim settings:
 set colorcolumn=100
+autocmd FileType python set colorcolumn=80
+autocmd FileType javascript set colorcolumn=100
 set number " add line numbers
 
 function! g:ToggleNuMode()
@@ -206,33 +211,39 @@ function! s:detectRegionFileType()
     set ft=javascript
   endif
 endfunction
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Resize splits on window resize
+au VimResized * wincmd =
+
+set foldmethod=syntax
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " coc
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" load coc settnigs only if plugin installed
-autocmd! User CocNvimInit call s:applyCocSettings()
-function! s:applyCocSettings()
-  " if hidden is not set, TextEdit might fail.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" function! s:applyCocSettings()
+  " TextEdit might fail if hidden is not set.
   set hidden
 
-  " Some servers have issues with backup files, see #649
+  " Some servers have issues with backup files, see #649.
   set nobackup
   set nowritebackup
 
-  " Better display for messages
+  " Give more space for displaying messages.
   set cmdheight=2
 
-  " You will have bad experience for diagnostic messages when it's default 4000.
+  " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+  " delays and poor user experience.
   set updatetime=300
 
-  " don't give |ins-completion-menu| messages.
+  " Don't pass messages to |ins-completion-menu|.
   set shortmess+=c
 
-  " always show signcolumns
+  " Always show the signcolumn, otherwise it would shift the text each time
+  " diagnostics appear/become resolved.
   set signcolumn=yes
 
   " Use tab for trigger completion with characters ahead and navigate.
-  " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+  " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+  " other plugin before putting this into your config.
   inoremap <silent><expr> <TAB>
         \ pumvisible() ? "\<C-n>" :
         \ <SID>check_back_space() ? "\<TAB>" :
@@ -247,21 +258,26 @@ function! s:applyCocSettings()
   " Use <c-space> to trigger completion.
   inoremap <silent><expr> <c-space> coc#refresh()
 
-  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-  " Coc only does snippet and additional edit on confirm.
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+  " position. Coc only does snippet and additional edit on confirm.
+  " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+  if exists('*complete_info')
+    inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+  else
+    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  endif
 
-  " Use `[c` and `]c` to navigate diagnostics
-  nmap <silent> [c <Plug>(coc-diagnostic-prev)
-  nmap <silent> ]c <Plug>(coc-diagnostic-next)
+  " Use `[g` and `]g` to navigate diagnostics
+  nmap <silent> [g <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-  " Remap keys for gotos
+  " GoTo code navigation.
   nmap <silent> gd <Plug>(coc-definition)
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
 
-  " Use K to show documentation in preview window
+  " Use K to show documentation in preview window.
   nnoremap <silent> K :call <SID>show_documentation()<CR>
 
   function! s:show_documentation()
@@ -272,13 +288,13 @@ function! s:applyCocSettings()
     endif
   endfunction
 
-  " Highlight symbol under cursor on CursorHold
+  " Highlight the symbol and its references when holding the cursor.
   autocmd CursorHold * silent call CocActionAsync('highlight')
 
-  " Remap for rename current word
+  " Symbol renaming.
   nmap <leader>rn <Plug>(coc-rename)
 
-  " Remap for format selected region
+  " Formatting selected code.
   xmap <leader>f  <Plug>(coc-format-selected)
   nmap <leader>f  <Plug>(coc-format-selected)
 
@@ -286,69 +302,93 @@ function! s:applyCocSettings()
     autocmd!
     " Setup formatexpr specified filetype(s).
     autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-    " Update signature help on jump placeholder
+    " Update signature help on jump placeholder.
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
   augroup end
 
-  " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+  " Applying codeAction to the selected region.
+  " Example: `<leader>aap` for current paragraph
   xmap <leader>a  <Plug>(coc-codeaction-selected)
   nmap <leader>a  <Plug>(coc-codeaction-selected)
 
-  " Remap for do codeAction of current line
+  " Remap keys for applying codeAction to the current line.
   nmap <leader>ac  <Plug>(coc-codeaction)
-  " Fix autofix problem of current line
+  " Apply AutoFix to problem on the current line.
   nmap <leader>qf  <Plug>(coc-fix-current)
 
-  " Use `:Format` to format current buffer
+  " Map function and class text objects
+  " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+  xmap if <Plug>(coc-funcobj-i)
+  omap if <Plug>(coc-funcobj-i)
+  xmap af <Plug>(coc-funcobj-a)
+  omap af <Plug>(coc-funcobj-a)
+  xmap ic <Plug>(coc-classobj-i)
+  omap ic <Plug>(coc-classobj-i)
+  xmap ac <Plug>(coc-classobj-a)
+  omap ac <Plug>(coc-classobj-a)
+
+  " Use CTRL-S for selections ranges.
+  " Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
+  nmap <silent> <C-s> <Plug>(coc-range-select)
+  xmap <silent> <C-s> <Plug>(coc-range-select)
+
+  " Add `:Format` command to format current buffer.
   command! -nargs=0 Format :call CocAction('format')
 
-  " Use `:Fold` to fold current buffer
+  " Add `:Fold` command to fold current buffer.
   command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-  " use `:OR` for organize import of current buffer
+  " Add `:OR` command for organize imports of the current buffer.
   command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
-  " Add diagnostic info for https://github.com/itchyny/lightline.vim
-  let g:lightline = {
-        \ 'colorscheme': 'wombat',
-        \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'cocstatus', 'readonly', 'relativepath', 'modified' ] ]
-        \ },
-        \ 'inactive': {
-        \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'cocstatus', 'readonly', 'relativepath', 'modified' ] ]
-        \ },
-        \ 'component_function': {
-        \   'cocstatus': 'coc#status'
-        \ },
-        \ }
+  " Add (Neo)Vim's native statusline support.
+  " NOTE: Please see `:h coc-status` for integrations with external plugins that
+  " provide custom statusline: lightline.vim, vim-airline.
+  set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-  " reload lightline settings
-  call lightline#disable() | call lightline#enable()
-
-  " Use auocmd to force lightline update.
-  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-
-
-  " Using CocList
-  " Show all diagnostics
+  " Mappings using CoCList:
+  " Show all diagnostics.
   nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-  " Manage extensions
+  " Manage extensions.
   nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-  " Show commands
+  " Show commands.
   nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-  " Find symbol of current document
+  " Find symbol of current document.
   nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-  " Search workspace symbols
+  " Search workspace symbols.
   nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
   " Do default action for next item.
   nnoremap <silent> <space>j  :<C-u>CocNext<CR>
   " Do default action for previous item.
   nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-  " Resume latest coc list
+  " Resume latest coc list.
   nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  " vim-airline
+  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  " Enable/Disable coc integration
+  let g:airline#extensions#coc#enabled = 1
 
+  " Change error symbol:
+  let airline#extensions#coc#error_symbol = 'E:'
+
+  " Change warning symbol:
+  let airline#extensions#coc#warning_symbol = 'W:'
+
+  " Change error format:
+  let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
+
+  " Change warning format:
+  let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
+
+  " Change theme
+  let g:airline_theme='onedark'
+
+  let g:airline#extensions#keymap#enabled = '0'
+
+  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  " My custom mappings:
+  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   " map eslint autofix
   nnoremap <silent> <leader>ef :CocCommand eslint.executeAutofix<CR>
 
@@ -358,6 +398,13 @@ function! s:applyCocSettings()
     \ :echon "fixed"<CR>
 
   " fix highlighting for files with multiple languages (like vue)
-  autocmd FileType vue syntax sync fromstart
-  autocmd FileType javascript syntax sync fromstart
-endf
+  " autocmd FileType vue syntax sync fromstart
+  " autocmd FileType javascript syntax sync fromstart
+
+  " fix for coc-yaml
+   let g:coc_filetype_map = {
+   \ 'yaml.ansible': 'yaml',
+   \ }
+  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" endf
+" autocmd! User CocNvimInit call s:applyCocSettings()

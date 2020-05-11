@@ -31,7 +31,7 @@ bindkey '^I' $fzf_default_completion
 
 # configs for fdfind and find for fallback
 useFDFind () {
-  FIND_OPTIONS="--hidden --no-ignore --follow --exclude .git"
+  FIND_OPTIONS="--hidden --no-ignore --follow --exclude .git --exclude node_modules"
   # export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"--ansi"
   # FIND_OPTIONS+=" --color always"
   export FZF_DEFAULT_COMMAND="fdfind --type f --type l $FIND_OPTIONS"
