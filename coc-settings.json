@@ -6,7 +6,7 @@
   "diagnostic-languageserver.filetypes": {
     "php": "phpcs",
     "css": "stylelint",
-    "javascript": "stylelint",
+//    "javascript": "stylelint",
     "yaml": "ansible-lint",
     "off_yaml": "yamllint",
     "asterisk": "asterisklint"

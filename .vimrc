@@ -11,7 +11,7 @@ Plug 'scrooloose/nerdcommenter' " Для быстрого комментиров
 Plug 'easymotion/vim-easymotion' " Крутая навигация по проекту
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'neoclide/coc-stylelint', {'tag': '1.1.0', 'do': 'rm ./yarn.lock && yarn'}
+" Plug 'neoclide/coc.nvim', {'commit': '757567b1dbe9c97f50ee7e9c421f7242f931e8f3'}
 Plug 'vim-airline/vim-airline'
 Plug 'Shougo/neco-vim'
 Plug 'neoclide/coc-neco'
@@ -26,7 +26,7 @@ Plug 'editorconfig/editorconfig-vim' " to use .editorconfig
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
-Plug 'airblade/vim-rooter' 
+" Plug 'airblade/vim-rooter' 
 Plug 'sheerun/vim-polyglot' " Плагин для подсветки синтаксиса
 Plug 'tpope/vim-eunuch' " Adds :Move command
 Plug 'qpkorr/vim-bufkill'
@@ -112,7 +112,7 @@ let g:onedark_terminal_italics=1
 colorscheme onedark 
 
 " vim-rooter
-let g:rooter_patterns = ['Vagrantfile', 'node_modules/', '.git/']
+" let g:rooter_patterns = ['Vagrantfile', 'node_modules/', '.git/']
 " let g:rooter_manual_only = 1
 
 " fzf
@@ -175,7 +175,7 @@ set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
 
-set scrolloff=5
+set scrolloff=10
 
 set mouse=a
 tnoremap <Esc> <C-\><C-n>
@@ -405,6 +405,9 @@ set foldmethod=syntax
    let g:coc_filetype_map = {
    \ 'yaml.ansible': 'yaml',
    \ }
-  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+   " Reset coc hotkey
+  nmap <Leader>cr :CocRestart<CR>
+   """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " endf
 " autocmd! User CocNvimInit call s:applyCocSettings()
