@@ -16,7 +16,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'Shougo/neco-vim'
 Plug 'neoclide/coc-neco'
 
-Plug 'joshdick/onedark.vim', { 'do': ':colorscheme onedark' } " Тема анологичная Atom
+Plug 'morhetz/gruvbox', { 'do': ':colorscheme gruvbox' }
+" Plug 'joshdick/onedark.vim', { 'do': ':colorscheme onedark' } " Тема анологичная Atom
 Plug 'airblade/vim-gitgutter' " Добавляет отображение изменённых в коммитах строчках
 Plug 'machakann/vim-sandwich'
 Plug 'alvan/vim-closetag' " Autoclose html tags by >
@@ -32,18 +33,23 @@ Plug 'tpope/vim-eunuch' " Adds :Move command
 Plug 'qpkorr/vim-bufkill'
 Plug 'jeffkreeftmeijer/vim-numbertoggle' " Toggles between hybrid and absolute line numbers automaticallly 
 Plug 'wesQ3/vim-windowswap'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 call plug#end()
 
-" \  'coc-stylelint',
+" markdown
+let g:mkdp_auto_start = 1
+" markdown
+
 let g:coc_global_extensions = [
 \  'coc-json',
 \  'coc-tsserver',
-\  'coc-eslint',
 \  'coc-css',
+\  'coc-cssmodules',
+\  'coc-stylelintplus',
+\  'coc-prettier',
 \  'coc-diagnostic',
 \  'coc-emmet',
 \  'coc-html',
-\  'coc-diagnostic',
 \  'coc-vetur',
 \  'coc-highlight',
 \  'coc-yaml',
@@ -82,34 +88,51 @@ function! NERDCommenter_after()
 endfunction
 
 " vim-easymotion
-map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
+" default leader is <Leader><Leader>
+" default shortcats is <Leader>s, <Leader>gE.
+ " map  <Leader>f <Plug>(easymotion-bd-f)
+" nmap <Leader>f <Plug>(easymotion-overwin-f)
 
 " vim-closetag
 let g:closetag_filenames = '*.html,*.js,*.php'
 let g:closetag_close_shortcut = '<leader>>'
 
 " Show special / NonText keys 
-set list listchars=eol:↲,tab:»\ ,space:·,trail:•,extends:›,precedes:‹,conceal:*,nbsp:␣
+" with end of line symbol
+" set list listchars=eol:↲,tab:»\ ,space:·,trail:•,extends:›,precedes:‹,conceal:*,nbsp:␣
+" without end of line symbol
+set list listchars=tab:»\ ,space:·,trail:•,extends:›,precedes:‹,conceal:*,nbsp:␣
 let &showbreak='↳ '
 
-" onedark
+if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
+"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
 if (has("termguicolors"))
   set termguicolors
 endif
 
-if (has("autocmd"))
-  augroup colorextend
-    autocmd!
-    " Defoult NonText color:
-    " autocmd ColorScheme * call onedark#extend_highlight("NonText", { "fg": { "gui": "#3B4048" } })
-    " 25% Lighter:
-    autocmd ColorScheme * call onedark#extend_highlight("NonText", { "fg": { "gui": "#656E7C" } })
-  augroup END
-endif
+ let g:gruvbox_italic = 1
+colorscheme gruvbox
+" autocmd vimenter * colorscheme gruvbox
 
-let g:onedark_terminal_italics=1
-colorscheme onedark 
+" onedark
+" if (has("autocmd"))
+"   augroup colorextend
+"     autocmd!
+"     " Defoult NonText color:
+"     " autocmd ColorScheme * call onedark#extend_highlight("NonText", { "fg": { "gui": "#3B4048" } })
+"     " 25% Lighter:
+"     autocmd ColorScheme * call onedark#extend_highlight("NonText", { "fg": { "gui": "#656E7C" } })
+"   augroup END
+" endif
+
+" let g:onedark_terminal_italics=1
+" colorscheme onedark 
 
 " vim-rooter
 " let g:rooter_patterns = ['Vagrantfile', 'node_modules/', '.git/']
@@ -215,6 +238,7 @@ endfunction
 " Resize splits on window resize
 au VimResized * wincmd =
 
+
 set foldmethod=syntax
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " coc
@@ -239,7 +263,12 @@ set foldmethod=syntax
 
   " Always show the signcolumn, otherwise it would shift the text each time
   " diagnostics appear/become resolved.
-  set signcolumn=yes
+  if has("patch-8.1.1564")
+    " Recently vim can merge signcolumn and number column into one
+    set signcolumn=number
+  else
+    set signcolumn=yes
+  endif
 
   " Use tab for trigger completion with characters ahead and navigate.
   " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -256,7 +285,11 @@ set foldmethod=syntax
   endfunction
 
   " Use <c-space> to trigger completion.
-  inoremap <silent><expr> <c-space> coc#refresh()
+  if has('nvim')
+    inoremap <silent><expr> <c-space> coc#refresh()
+  else
+    inoremap <silent><expr> <c-@> coc#refresh()
+  endif
 
   " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
   " position. Coc only does snippet and additional edit on confirm.
@@ -268,6 +301,7 @@ set foldmethod=syntax
   endif
 
   " Use `[g` and `]g` to navigate diagnostics
+  " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
   nmap <silent> [g <Plug>(coc-diagnostic-prev)
   nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
@@ -311,7 +345,7 @@ set foldmethod=syntax
   xmap <leader>a  <Plug>(coc-codeaction-selected)
   nmap <leader>a  <Plug>(coc-codeaction-selected)
 
-  " Remap keys for applying codeAction to the current line.
+  " Remap keys for applying codeAction to the current buffer.
   nmap <leader>ac  <Plug>(coc-codeaction)
   " Apply AutoFix to problem on the current line.
   nmap <leader>qf  <Plug>(coc-fix-current)
@@ -346,23 +380,23 @@ set foldmethod=syntax
   " provide custom statusline: lightline.vim, vim-airline.
   set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-  " Mappings using CoCList:
+  " Mappings for CoCList
   " Show all diagnostics.
-  nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+  nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
   " Manage extensions.
-  nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+  nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
   " Show commands.
-  nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+  nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
   " Find symbol of current document.
-  nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+  nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
   " Search workspace symbols.
-  nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+  nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
   " Do default action for next item.
-  nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+  nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
   " Do default action for previous item.
-  nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+  nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
   " Resume latest coc list.
-  nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+  nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
   """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   " vim-airline
   """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -382,19 +416,46 @@ set foldmethod=syntax
   let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
 
   " Change theme
-  let g:airline_theme='onedark'
+  " let g:airline_theme='onedark'
+  let g:airline_theme='gruvbox'
 
   let g:airline#extensions#keymap#enabled = '0'
 
   """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   " My custom mappings:
   """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+  " nnoremap <silent> <leader>ef :CocCommand eslint.executeAutofix<CR>
+    " \ :execute "!npx eslint --fix " . expand('%')<bar>
+    " \ :silent execute "!eslint_d --fix " . expand('%')<bar>
+
+  " :silent execute "!eslint_d --fix " . expand('%')
+  "  autocmd FileType javascript autocmd BufWritePost <buffer> noautocmd call FormatByEslint()
+  function! FormatByEslint()
+    :silent execute "!eslint_d --fix " . expand('%:p')
+    :edit
+    :silent CocRestart
+    :sign unplace *
+    :echon " fixed"
+  endfunction
+
   " map eslint autofix
-  nnoremap <silent> <leader>ef :CocCommand eslint.executeAutofix<CR>
+  nnoremap <leader>ef
+   \ :write<bar>
+   \ :call FormatByEslint()<CR>
 
   " map stylelint autofix
-  nnoremap <silent> <leader>sf 
-    \ :execute "!npx stylelint --fix " . expand('%')<bar>
+"    \ :execute "!npx stylelint --fix " . expand('%')<bar>
+  nnoremap <leader>sf
+    \ :write<bar>
+    \ :silent execute "!npx stylelint --fix " . expand('%')<bar>
+    \ :edit<bar>
+    \ :echon "fixed"<CR>
+
+  nnoremap <leader>pf
+    \ :write<bar>
+    \ :silent execute "!npx prettier -w " . expand('%')<bar>
+    \ :edit<bar>
     \ :echon "fixed"<CR>
 
   " fix highlighting for files with multiple languages (like vue)
@@ -407,7 +468,13 @@ set foldmethod=syntax
    \ }
 
    " Reset coc hotkey
-  nmap <Leader>cr :CocRestart<CR>
+  nmap <Leader>cr
+    \ :sign unplace *<CR>
+    \ :CocRestart<CR>
    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " endf
 " autocmd! User CocNvimInit call s:applyCocSettings()
+
+" solve problem with freezed signs
+" :nmap <silent> <leader>u :sign unplace *<CR>
