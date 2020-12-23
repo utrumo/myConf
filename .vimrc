@@ -11,6 +11,7 @@ Plug 'scrooloose/nerdcommenter' " Для быстрого комментиров
 Plug 'easymotion/vim-easymotion' " Крутая навигация по проекту
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'tag': 'v0.0.79'}
 " Plug 'neoclide/coc.nvim', {'commit': '757567b1dbe9c97f50ee7e9c421f7242f931e8f3'}
 Plug 'vim-airline/vim-airline'
 Plug 'Shougo/neco-vim'
@@ -27,7 +28,7 @@ Plug 'editorconfig/editorconfig-vim' " to use .editorconfig
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
-" Plug 'airblade/vim-rooter' 
+Plug 'airblade/vim-rooter' 
 Plug 'sheerun/vim-polyglot' " Плагин для подсветки синтаксиса
 Plug 'tpope/vim-eunuch' " Adds :Move command
 Plug 'qpkorr/vim-bufkill'
@@ -40,13 +41,13 @@ call plug#end()
 let g:mkdp_auto_start = 1
 " markdown
 
+" \  'coc-prettier',
 let g:coc_global_extensions = [
 \  'coc-json',
 \  'coc-tsserver',
 \  'coc-css',
 \  'coc-cssmodules',
 \  'coc-stylelintplus',
-\  'coc-prettier',
 \  'coc-diagnostic',
 \  'coc-emmet',
 \  'coc-html',
@@ -94,8 +95,8 @@ endfunction
 " nmap <Leader>f <Plug>(easymotion-overwin-f)
 
 " vim-closetag
-let g:closetag_filenames = '*.html,*.js,*.php'
-let g:closetag_close_shortcut = '<leader>>'
+" let g:closetag_filenames = '*.html,*.js,*.jsx,*.ts,*.tsx,*.php'
+" let g:closetag_close_shortcut = '<leader>>'
 
 " Show special / NonText keys 
 " with end of line symbol
@@ -136,19 +137,11 @@ colorscheme gruvbox
 
 " vim-rooter
 " let g:rooter_patterns = ['Vagrantfile', 'node_modules/', '.git/']
-" let g:rooter_manual_only = 1
+let g:rooter_patterns = ['.git/']
+let g:rooter_manual_only = 1
 
 " fzf
-nmap <Leader>; :Buffers<CR>
-nmap <Leader>r :Tags<CR>
-nmap <Leader>t :Files<CR>
-nmap <Leader>a :Rg!<CR>
-nmap <Leader>c :Colors<CR>
-nmap <Leader>m :Marks<CR>
-
-" inoremap <Leader>nm <C-O>:call FindInNodeModules()<CR>
-
-" function! FindInNodeModules()
+" function! FindInNodeModulesAndIsert()
 "   let nodeModulesPath = FindRootDirectory() . "/node_modules"
 "   if !isdirectory(nodeModulesPath)
 "     echo nodeModulesPath . " is not found"
@@ -162,6 +155,48 @@ nmap <Leader>m :Marks<CR>
 "   \ "down": 20,
 "   \})
 " endfunction
+" inoremap <Leader>nm <C-O>:call FindInNodeModulesAndIsert()<CR>
+
+function! s:findInNodeModules(relativePath)
+  let dir = FindRootDirectory() . a:relativePath
+
+  if !isdirectory(dir)
+    echo dir . " is not found"
+    return
+  endif
+
+  execute 'Files' dir
+endfunction
+
+nnoremap <Leader>; :Buffers<CR>
+nnoremap <Leader>r :Tags<CR>
+
+" current directory
+nnoremap <Leader>t :Files<CR>
+nnoremap <silent><Leader>nm :call <SID>findInNodeModules("/node_modules")<CR>
+nmap <silent><Leader>rd :execute 'Files' FindRootDirectory()<CR>
+" nmap <silent><Leader>ts :call <SID>findInNodeModules("/src")<CR>
+nnoremap <Leader>a :Rg!<CR>
+nnoremap <Leader>c :Colors<CR>
+nnoremap <Leader>m :Marks<CR>
+
+function! s:processLine(line)
+  execute 'cd' a:line
+  " execute ':Files'
+endfunction
+
+function! s:change_dir(dir)
+  " let source = 'find -type d -not \( -name .git -prune -o -name node_modules -prune \)'
+  let source = 'find -type d -not \( -name .git -prune \)'
+  call fzf#run({
+    \ 'dir': a:dir,
+    \ 'source': source,
+    \ 'sink': {line -> s:processLine(line)}
+    \ })
+endfunction
+
+nnoremap<silent><Leader>D :call <SID>change_dir(FindRootDirectory())<CR>
+nnoremap<silent><Leader>d :call <SID>change_dir('.')<CR>
 
 " vim settings:
 set colorcolumn=100
@@ -206,13 +241,14 @@ tnoremap <C-[> <C-\><C-n>
 set confirm " disabled error on exit and ask to save
 
 " Open vim config
-map <LEADER>oc :e ~/.vimrc<CR>
-map <LEADER>occ :CocConfig<CR>
-map <LEADER>ocl :CocOpenLog<CR>
-map <LEADER>oci :CocInfo<CR>
-map <LEADER>pi :PlugInstall<CR>
-map <LEADER>pu :PlugUpdate<CR>
-map <LEADER>pc :PlugClean<CR>
+nnoremap <LEADER>co :e ~/.vimrc<CR>
+nnoremap <Leader>cr :source $MYVIMRC<CR>
+nnoremap <LEADER>cco :CocConfig<CR>
+nnoremap <LEADER>col :CocOpenLog<CR>
+nnoremap <LEADER>ci :CocInfo<CR>
+nnoremap <LEADER>pi :PlugInstall<CR>
+nnoremap <LEADER>pu :PlugUpdate<CR>
+nnoremap <LEADER>pc :PlugClean<CR>
 
 " Hack for lit-element / lit-html
 nnoremap <silent><C-h> :call <SID>detectRegionFileType()<CR>
@@ -291,14 +327,10 @@ set foldmethod=syntax
     inoremap <silent><expr> <c-@> coc#refresh()
   endif
 
-  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-  " position. Coc only does snippet and additional edit on confirm.
-  " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-  if exists('*complete_info')
-    inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-  else
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-  endif
+  " Make <CR> auto-select the first completion item and notify coc.nvim to
+  " format on enter, <cr> could be remapped by other vim plugin
+  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                                \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
   " Use `[g` and `]g` to navigate diagnostics
   " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -317,8 +349,10 @@ set foldmethod=syntax
   function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
       execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+      call CocActionAsync('doHover')
     else
-      call CocAction('doHover')
+      execute '!' . &keywordprg . " " . expand('<cword>')
     endif
   endfunction
 
@@ -360,6 +394,16 @@ set foldmethod=syntax
   omap ic <Plug>(coc-classobj-i)
   xmap ac <Plug>(coc-classobj-a)
   omap ac <Plug>(coc-classobj-a)
+
+  " Remap <C-f> and <C-b> for scroll float windows/popups.
+  if has('nvim-0.4.0') || has('patch-8.2.0750')
+    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+    inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  endif
 
   " Use CTRL-S for selections ranges.
   " Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
@@ -468,7 +512,7 @@ set foldmethod=syntax
    \ }
 
    " Reset coc hotkey
-  nmap <Leader>cr
+  nmap <Leader>ccr
     \ :sign unplace *<CR>
     \ :CocRestart<CR>
    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

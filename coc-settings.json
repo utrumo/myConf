@@ -1,22 +1,22 @@
 {
-  "diagnostic.signOffset": 9999999,
+  // "diagnostic.signOffset": 9999999,
   "css.validate": false,
   "less.validate": false,
   "scss.validate": false,
   "wxss.validate": false,
-  "stylelintplus.cssInJs": false,
+  // "stylelintplus.cssInJs": true,
   "stylelintplus.autoFixOnSave": true,
-  "prettier.eslintIntegration": false,
-  "prettier.stylelintIntegration": false,
-  "prettier.disableLanguages": [
-    "scss",
-    "javascript",
-    "javascript.tsx",
-    "javascriptreact",
-    "typescript",
-    "typescript.tsx",
-    "typescriptreact"
-  ],
+  // "prettier.eslintIntegration": false,
+  // "prettier.stylelintIntegration": false,
+  // "prettier.disableLanguages": [
+  //   "scss",
+  //   "javascript",
+  //   "javascript.tsx",
+  //   "javascriptreact",
+  //   "typescript",
+  //   "typescript.tsx",
+  //   "typescriptreact"
+  // ],
   "coc.preferences.formatOnSaveFiletypes": [
     "json",
     "yaml",
@@ -33,7 +33,9 @@
   "diagnostic-languageserver.linters": {
     "eslint_d": {
       "command": "eslint_d",
-      "rootPatterns": [".git"],
+      "rootPatterns": [
+        ".git"
+      ],
       "debounce": 100,
       "args": [
         "--stdin",
@@ -62,7 +64,9 @@
   "diagnostic-languageserver.formatters": {
     "eslint_d": {
       "command": "eslint_d",
-      "rootPatterns": [".git"],
+      "rootPatterns": [
+        ".git"
+      ],
       "args": [
         "--stdin",
         "--stdin-filename",

@@ -51,3 +51,10 @@ if hash fdfind 2>/dev/null; then
 else
   fallbackToFind
 fi
+
+function find_projects_work() {
+  dir=`find ~/Projects/work -type d -not \( -name node_modules -prune -o -name .git -prune \) | fzf`
+  [ -z "$dir" ] || cd $dir
+}
+
+alias fw=find_projects_work
