@@ -35,7 +35,16 @@ Plug 'qpkorr/vim-bufkill'
 Plug 'jeffkreeftmeijer/vim-numbertoggle' " Toggles between hybrid and absolute line numbers automaticallly 
 Plug 'wesQ3/vim-windowswap'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'voldikss/vim-floaterm', { 'do': 'pip install neovim-remote' }
 call plug#end()
+
+" vim-floaterm
+" Configuration example
+let g:floaterm_keymap_new    = '<F7>'
+let g:floaterm_keymap_prev   = '<F8>'
+let g:floaterm_keymap_next   = '<F9>'
+let g:floaterm_keymap_toggle = '<F12>'
+command! Vifm FloatermNew vifm
 
 " markdown
 let g:mkdp_auto_start = 1
