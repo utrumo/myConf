@@ -165,8 +165,16 @@ let g:rooter_manual_only = 1
 "   \})
 " endfunction
 " inoremap <Leader>nm <C-O>:call FindInNodeModulesAndIsert()<CR>
+"
+function! s:FindInProject()
+  :call fzf#run(fzf#wrap({
+  \ "dir": FindRootDirectory(),
+  \ 'source': "find -type f -not \\( -path './node_modules/*' -or  -path './.git/*' \\) \| sed 's/^..//'",
+  \}))
+endfunction
+nmap <silent><Leader>rd :call <SID>FindInProject()<CR>
 
-function! s:findInNodeModules(relativePath)
+function! s:findIn(relativePath)
   let dir = FindRootDirectory() . a:relativePath
 
   if !isdirectory(dir)
@@ -182,8 +190,8 @@ nnoremap <Leader>r :Tags<CR>
 
 " current directory
 nnoremap <Leader>t :Files<CR>
-nnoremap <silent><Leader>nm :call <SID>findInNodeModules("/node_modules")<CR>
-nmap <silent><Leader>rd :execute 'Files' FindRootDirectory()<CR>
+nnoremap <silent><Leader>nm :call <SID>findIn("/node_modules")<CR>
+" nmap <silent><Leader>rd :execute 'Files' FindRootDirectory().'/src'<CR>
 " nmap <silent><Leader>ts :call <SID>findInNodeModules("/src")<CR>
 nnoremap <Leader>a :Rg!<CR>
 nnoremap <Leader>c :Colors<CR>
@@ -531,3 +539,5 @@ set foldmethod=syntax
 
 " solve problem with freezed signs
 " :nmap <silent> <leader>u :sign unplace *<CR>
+"
+:autocmd! BufWritePre *.js,*.jsx,*.ts,*.tsx,*.scss call CocAction('format')

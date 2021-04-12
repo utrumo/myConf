@@ -30,6 +30,7 @@
     "typescript.tsx",
     "typescriptreact"
   ],
+  "javascript.suggestionActions.enabled": false,
   "diagnostic-languageserver.linters": {
     "eslint_d": {
       "command": "eslint_d",
