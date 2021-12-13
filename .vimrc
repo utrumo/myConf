@@ -49,8 +49,8 @@ command! Vifm FloatermNew vifm
 " markdown
 let g:mkdp_auto_start = 1
 " markdown
-
 " \  'coc-prettier',
+
 let g:coc_global_extensions = [
 \  'coc-json',
 \  'coc-tsserver',
@@ -235,11 +235,13 @@ set splitbelow
 set splitright
 
 set tabstop=2 "2 space on tab
+set softtabstop=2
 set shiftwidth=2 "2 space for << and >>
 set smarttab " delete tabstop spaces in the begining of aline on backspace instead of 1 space
 set expandtab " insert space characters whenever the tab key is pressed
+set foldmethod=syntax
 
-set autoindent " copy indent for new line from previos
+" set autoindent " copy indent for new line from previos
 set smartindent
 
 set ignorecase
@@ -291,8 +293,6 @@ endfunction
 " Resize splits on window resize
 au VimResized * wincmd =
 
-
-set foldmethod=syntax
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " coc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
