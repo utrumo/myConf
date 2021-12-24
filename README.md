@@ -1,5 +1,11 @@
 # myConf
 
+Need to install:
+xsel
+inotify-tools
+bat
+fd // I'm not using it right now
+
 # Install:
 ./install.sh
 

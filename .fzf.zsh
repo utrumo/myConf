@@ -29,14 +29,14 @@ export FZF_COMPLETION_TRIGGER=''
 bindkey '^T' fzf-completion
 bindkey '^I' $fzf_default_completion
 
-# configs for fdfind and find for fallback
-useFDFind () {
+# configs for fd and find for fallback
+useFD () {
   FIND_OPTIONS="--hidden --no-ignore --follow --exclude .git --exclude node_modules"
   # export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"--ansi"
   # FIND_OPTIONS+=" --color always"
-  export FZF_DEFAULT_COMMAND="fdfind --type f --type l $FIND_OPTIONS"
-  export FZF_CTRL_T_COMMAND="fdfind $FIND_OPTIONS"
-  export FZF_ALT_C_COMMAND="fdfind --type d $FIND_OPTIONS"
+  export FZF_DEFAULT_COMMAND="fd --type f --type l $FIND_OPTIONS"
+  export FZF_CTRL_T_COMMAND="fd $FIND_OPTIONS"
+  export FZF_ALT_C_COMMAND="fd --type d $FIND_OPTIONS"
 }
 
 fallbackToFind () {
@@ -46,8 +46,8 @@ fallbackToFind () {
   export FZF_ALT_C_COMMAND="find $FIND_OPTIONS -o -type d -print"
 }
 
-if hash fdfind 2>/dev/null; then
-  useFDFind
+if hash fd 2>/dev/null; then
+  useFD
 else
   fallbackToFind
 fi
