@@ -24,14 +24,14 @@ ctrl-y:execute(echo {+} | xsel -ib)\
 # start fzf in a split pane in tmux
 export FZF_TMUX=1
 
-# instead of using **<TAB> to trigger fuzzy completion use <CTRL-T>
-export FZF_COMPLETION_TRIGGER=''
+# using default **<TAB> to trigger fuzzy completion use <CTRL-T>
+export FZF_COMPLETION_TRIGGER='**'
 bindkey '^T' fzf-completion
 bindkey '^I' $fzf_default_completion
 
 # configs for fd and find for fallback
 useFD () {
-  FIND_OPTIONS="--hidden --no-ignore --follow --exclude .git --exclude node_modules"
+  FIND_OPTIONS="--hidden --no-ignore --follow --exclude .git --exclude node_modules --exclude vendor"
   # export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"--ansi"
   # FIND_OPTIONS+=" --color always"
   export FZF_DEFAULT_COMMAND="fd --type f --type l $FIND_OPTIONS"
