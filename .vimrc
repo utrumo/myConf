@@ -572,7 +572,11 @@ nnoremap <leader>n :NvimTreeFindFile<CR>
 autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
 
 lua << EOF
-require'nvim-tree'.setup {}
+require'nvim-tree'.setup {
+  view = {
+    adaptive_size = true,
+  }
+}
 EOF
 
 nnoremap <leader>bg :call ToggleBackground()<CR>
