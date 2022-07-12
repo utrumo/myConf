@@ -20,6 +20,7 @@ Plug 'neoclide/coc-neco'
 Plug 'morhetz/gruvbox', { 'do': ':colorscheme gruvbox' }
 " Plug 'joshdick/onedark.vim', { 'do': ':colorscheme onedark' } " Тема анологичная Atom
 Plug 'airblade/vim-gitgutter' " Добавляет отображение изменённых в коммитах строчках
+Plug 'tpope/vim-fugitive'
 Plug 'machakann/vim-sandwich'
 Plug 'alvan/vim-closetag' " Autoclose html tags by >
 Plug 'mattn/emmet-vim'
@@ -591,3 +592,6 @@ function! ToggleBackground()
         highlight Normal guibg=none<CR>
     endif
 endfunction
+
+" Show commits for every source line (tpope/vim-fugitive)
+nnoremap <Leader>gb :Git blame<CR> 

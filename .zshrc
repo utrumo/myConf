@@ -1,3 +1,5 @@
+export EDITOR=nvim
+
 ROOT_PATH=$(dirname $(readlink -e $0))
 
 if [ -d "$HOME/.npm-global/bin" ] ; then
