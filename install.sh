@@ -5,8 +5,6 @@ SOURCE_COMMAND="[ -f $ROOT_PATH/.zshrc ] && source $ROOT_PATH/.zshrc"
 
 uninstall () {
   rm -rf \
-    ~/.vimrc \
-    ~/.vim \
     ~/.tmux.conf \
     ~/.config/nvim
 
@@ -16,10 +14,8 @@ uninstall () {
 }
 
 install () {
-  if [ -f ~/.vimrc ] \
-    || [ -f ~/.tmux.conf ] \
-    || [ -f ~/.config/nvim/init.vim ] \
-    || [ -f ~/.config/nvim/coc-settings.json ] \
+  if [ -f ~/.tmux.conf ] \
+    || [ -f ~/.config/nvim ] \
   ; then
     echo 'Config is exist!'
     exit
@@ -28,11 +24,8 @@ install () {
       echo "$SOURCE_COMMAND" >> ~/.zshrc
     fi
 
-    ln -s "$ROOT_PATH/.vimrc" ~/.vimrc
     ln -s "$ROOT_PATH/.tmux.conf" ~/.tmux.conf
-    mkdir -p ~/.config/nvim
-    ln -s "$ROOT_PATH/init.vim" ~/.config/nvim/init.vim
-    ln -s "$ROOT_PATH/coc-settings.json" ~/.config/nvim/coc-settings.json
+    ln -s "$ROOT_PATH/nvim" ~/.config/nvim
     nvim +PlugInstall +qall
     tmux
   fi
