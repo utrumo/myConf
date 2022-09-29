@@ -31,10 +31,6 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle' " Toggles between hybrid and absolute l
 Plug 'wesQ3/vim-windowswap'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'voldikss/vim-floaterm', { 'do': 'pip install neovim-remote' }
-
-" nvim-tree
-Plug 'kyazdani42/nvim-web-devicons' " for file icons
-Plug 'kyazdani42/nvim-tree.lua'
 call plug#end()
 
 lua << EOF
@@ -332,35 +328,7 @@ au VimResized * wincmd =
 :autocmd! BufWritePre *.js,*.jsx,*.ts,*.tsx,*.scss call CocAction('format')
 
 " nvim-tree
-nnoremap <C-n> :NvimTreeToggle<CR>
-nnoremap <leader>r :NvimTreeRefresh<CR>
-nnoremap <leader>n :NvimTreeFindFile<CR>
-" More available functions:
-" NvimTreeOpen
-" NvimTreeClose
-" NvimTreeFocus
-" NvimTreeFindFileToggle
-" NvimTreeResize
-" NvimTreeCollapse
-" NvimTreeCollapseKeepBuffers
-
-" set termguicolors " this variable must be enabled for colors to be applied properly
-
-" a list of groups can be found at `:help nvim_tree_highlight`
-" highlight NvimTreeFolderIcon guibg=blue
-
 autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
-
-lua << EOF
-local keyset = vim.keymap.set
-
-
-require'nvim-tree'.setup {
-  view = {
-    adaptive_size = true,
-  }
-}
-EOF
 
 " Show commits for every source line (tpope/vim-fugitive)
 nnoremap <Leader>gb :Git blame<CR> 

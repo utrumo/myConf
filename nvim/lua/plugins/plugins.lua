@@ -15,6 +15,9 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use { 'neoclide/coc.nvim', branch = 'release', config = function() require('plugins/coc') end }
   use { "ellisonleao/gruvbox.nvim", config = function () require('plugins/gruvbox') end }
+  use { 'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons' },
+    config = function () require('plugins/tree') end,
+  }
   use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function () require('plugins/lualine') end,
   }
