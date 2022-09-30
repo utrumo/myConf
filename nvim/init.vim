@@ -49,24 +49,6 @@ command! Vifm FloatermNew vifm
 let g:mkdp_auto_start = 1
 " markdown
 
-let g:coc_global_extensions = [
-\  'coc-prettier',
-\  'coc-json',
-\  'coc-tsserver',
-\  'coc-css',
-\  'coc-cssmodules',
-\  'coc-stylelintplus',
-\  'coc-diagnostic',
-\  'coc-emmet',
-\  'coc-html',
-\  'coc-vetur',
-\  'coc-highlight',
-\  'coc-yaml',
-\  'coc-browser',
-\  'coc-python',
-\ 'coc-lua'
-\ ]
-
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
 autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
@@ -107,11 +89,6 @@ endfunction
 " without end of line symbol
 set list listchars=tab:»\ ,space:·,trail:•,extends:›,precedes:‹,conceal:*,nbsp:␣
 let &showbreak='↳ '
-
-if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
 
 " vim-rooter
 " let g:rooter_patterns = ['Vagrantfile', 'node_modules/', '.git/']
