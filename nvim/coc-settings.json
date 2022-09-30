@@ -48,15 +48,14 @@
     "javascriptreact",
     "typescript",
     "typescript.tsx",
-    "typescriptreact"
+    "typescriptreact",
+    "lua"
   ],
   "javascript.suggestionActions.enabled": false,
   "diagnostic-languageserver.linters": {
     "eslint_d": {
       "command": "eslint_d",
-      "rootPatterns": [
-        "node_modules"
-      ],
+      "rootPatterns": ["node_modules"],
       "debounce": 100,
       "args": [
         "--stdin",
@@ -85,9 +84,7 @@
   "diagnostic-languageserver.formatters": {
     "eslint_d": {
       "command": "eslint_d",
-      "rootPatterns": [
-        ".git"
-      ],
+      "rootPatterns": [".git"],
       "args": [
         "--stdin",
         "--stdin-filename",
@@ -97,6 +94,16 @@
       ],
       "isStderr": false,
       "isStdout": true
+    },
+    "stylua": {
+      "command": "stylua",
+      "args": [
+        "--search-parent-directories",
+        "--stdin-filepath",
+        "%filepath",
+        "--",
+        "-"
+      ]
     }
   },
   "diagnostic-languageserver.filetypes": {
@@ -113,6 +120,7 @@
     "javascriptreact": "eslint_d",
     "typescript": "eslint_d",
     "typescript.tsx": "eslint_d",
-    "typescriptreact": "eslint_d"
+    "typescriptreact": "eslint_d",
+    "lua": "stylua"
   }
 }

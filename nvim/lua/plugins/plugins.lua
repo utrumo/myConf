@@ -1,9 +1,16 @@
 local ensure_packer = function()
   local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
   if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
+    fn.system({
+      'git',
+      'clone',
+      '--depth',
+      '1',
+      'https://github.com/wbthomason/packer.nvim',
+      install_path,
+    })
+    vim.cmd([[packadd packer.nvim]])
     return true
   end
   return false
@@ -12,15 +19,19 @@ end
 local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
-  use { 'neoclide/coc.nvim', branch = 'release', config = function() require('plugins/coc') end }
-  use { "ellisonleao/gruvbox.nvim", config = function () require('plugins/gruvbox') end }
-  use { 'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons' },
-    config = function () require('plugins/tree') end,
-  }
-  use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-    config = function () require('plugins/lualine') end,
-  }
+  use('wbthomason/packer.nvim')
+  use({ 'neoclide/coc.nvim', branch = 'release', config = function() require('plugins/coc') end })
+  use({ 'ellisonleao/gruvbox.nvim', config = function() require('plugins/gruvbox') end })
+  use({
+    'kyazdani42/nvim-tree.lua',
+    requires = { 'kyazdani42/nvim-web-devicons' },
+    config = function() require('plugins/tree') end,
+  })
+  use({
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    config = function() require('plugins/lualine') end,
+  })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

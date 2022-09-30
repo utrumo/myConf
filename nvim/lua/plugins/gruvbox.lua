@@ -1,4 +1,4 @@
-vim.o.background = "dark" -- or "light" for light mode
+vim.o.background = 'dark' -- or "light" for light mode
 vim.cmd([[colorscheme gruvbox]])
 
 local isOn = false
@@ -15,4 +15,4 @@ end
 toggleBackground()
 
 local keyset = vim.keymap.set
-keyset("n", "<Leader>bg", toggleBackground)
+keyset('n', '<Leader>bg', toggleBackground)
