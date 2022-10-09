@@ -241,63 +241,55 @@ endfunction
 " Resize splits on window resize
 au VimResized * wincmd =
 
-  " Disables built-in gutentags
-  " let g:gutentags_enabled = 0
+" Disables built-in gutentags
+" let g:gutentags_enabled = 0
 
-  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""V
-  " My custom mappings:
-  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" nnoremap <silent> <leader>ef :CocCommand eslint.executeAutofix<CR>
+" \ :execute "!npx eslint --fix " . expand('%')<bar>
+" \ :silent execute "!eslint_d --fix " . expand('%')<bar>
 
-  " nnoremap <silent> <leader>ef :CocCommand eslint.executeAutofix<CR>
-    " \ :execute "!npx eslint --fix " . expand('%')<bar>
-    " \ :silent execute "!eslint_d --fix " . expand('%')<bar>
+" :silent execute "!eslint_d --fix " . expand('%')
+"  autocmd FileType javascript autocmd BufWritePost <buffer> noautocmd call FormatByEslint()
+function! FormatByEslint()
+  :silent execute "!eslint_d --fix " . expand('%:p')
+  :edit
+  :silent CocRestart
+  :sign unplace *
+  :echon " fixed"
+endfunction
 
-  " :silent execute "!eslint_d --fix " . expand('%')
-  "  autocmd FileType javascript autocmd BufWritePost <buffer> noautocmd call FormatByEslint()
-  function! FormatByEslint()
-    :silent execute "!eslint_d --fix " . expand('%:p')
-    :edit
-    :silent CocRestart
-    :sign unplace *
-    :echon " fixed"
-  endfunction
+" map eslint autofix
+nnoremap <leader>ef
+ \ :write<bar>
+ \ :call FormatByEslint()<CR>
 
-  " map eslint autofix
-  nnoremap <leader>ef
-   \ :write<bar>
-   \ :call FormatByEslint()<CR>
-
-  " map stylelint autofix
+" map stylelint autofix
 "    \ :execute "!npx stylelint --fix " . expand('%')<bar>
-  nnoremap <leader>sf
-    \ :write<bar>
-    \ :silent execute "!npx stylelint --fix " . expand('%')<bar>
-    \ :edit<bar>
-    \ :echon "fixed"<CR>
+nnoremap <leader>sf
+  \ :write<bar>
+  \ :silent execute "!npx stylelint --fix " . expand('%')<bar>
+  \ :edit<bar>
+  \ :echon "fixed"<CR>
 
-  nnoremap <leader>pf
-    \ :write<bar>
-    \ :silent execute "!npx prettier -w " . expand('%')<bar>
-    \ :edit<bar>
-    \ :echon "fixed"<CR>
+nnoremap <leader>pf
+  \ :write<bar>
+  \ :silent execute "!npx prettier -w " . expand('%')<bar>
+  \ :edit<bar>
+  \ :echon "fixed"<CR>
 
-  " fix highlighting for files with multiple languages (like vue)
-  " autocmd FileType vue syntax sync fromstart
-  " autocmd FileType javascript syntax sync fromstart
+" fix highlighting for files with multiple languages (like vue)
+" autocmd FileType vue syntax sync fromstart
+" autocmd FileType javascript syntax sync fromstart
 
-  " fix for coc-yaml
-   let g:coc_filetype_map = {
-   \ 'yaml.ansible': 'yaml',
-   \ }
+" fix for coc-yaml
+ let g:coc_filetype_map = {
+ \ 'yaml.ansible': 'yaml',
+ \ }
 
-   " Reset coc hotkey
-  nmap <Leader>ccr
-    \ :sign unplace *<CR>
-    \ :CocRestart<CR>
-   """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" endf
-" autocmd! User CocNvimInit call s:applyCocSettings()
+ " Reset coc hotkey
+nmap <Leader>ccr
+  \ :sign unplace *<CR>
+  \ :CocRestart<CR>
 
 " solve problem with freezed signs
 " :nmap <silent> <leader>u :sign unplace *<CR>
