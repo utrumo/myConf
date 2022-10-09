@@ -7,8 +7,6 @@ endif
 
 " Vim plugin manager vim-plug To install new package :PlugInstall
 call plug#begin()
-Plug 'scrooloose/nerdcommenter' " Для быстрого комментирования
-
 Plug 'Shougo/neco-vim'
 Plug 'neoclide/coc-neco'
 
@@ -53,29 +51,6 @@ autocmd FileChangedShellPost *
 
 " autload changes in conf file
 autocmd! BufWritePost .vimrc,init.vim nested source $MYVIMRC
-
-" nerdcommenter
-let g:NERDSpaceDelims = 1
-let g:NERDDefaultAlign = 'left'
-let g:ft = ''
-function! NERDCommenter_before()
-  if &ft == 'vue'
-    let g:ft = 'vue'
-    let stack = synstack(line('.'), col('.'))
-    if len(stack) > 0
-      let syn = synIDattr((stack)[0], 'name')
-      if len(syn) > 0
-        exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
-      endif
-    endif
-  endif
-endfunction
-function! NERDCommenter_after()
-  if g:ft == 'vue'
-    setf vue
-    let g:ft = ''
-  endif
-endfunction
 
 " Show special / NonText keys 
 " with end of line symbol
@@ -193,9 +168,6 @@ nnoremap <LEADER>pc :PlugClean<CR>
 
 " Resize splits on window resize
 autocmd VimResized * wincmd =
-
-" nvim-tree
-autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
 
 " Show commits for every source line (tpope/vim-fugitive)
 nnoremap <Leader>gb :Git blame<CR> 

@@ -41,6 +41,10 @@ return require('packer').startup(function(use)
     'easymotion/vim-easymotion',
     config = function() require('plugins/easymotion') end,
   })
+  use({
+    'scrooloose/nerdcommenter',
+    config = function() require('plugins/nerdcommenter') end,
+  })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
