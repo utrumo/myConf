@@ -21,6 +21,11 @@ local packer_bootstrap = ensure_packer()
 return require('packer').startup(function(use)
   use('wbthomason/packer.nvim')
   use({ 'neoclide/coc.nvim', branch = 'release', config = function() require('plugins/coc') end })
+  use({
+    'nvim-treesitter/nvim-treesitter',
+    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+    config = function() require('plugins/treesitter') end,
+  })
   use({ 'ellisonleao/gruvbox.nvim', config = function() require('plugins/gruvbox') end })
   use({
     'kyazdani42/nvim-tree.lua',

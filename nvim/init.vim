@@ -24,7 +24,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter' 
-Plug 'sheerun/vim-polyglot' " Плагин для подсветки синтаксиса
 Plug 'tpope/vim-eunuch' " Adds :Move command
 Plug 'qpkorr/vim-bufkill'
 Plug 'jeffkreeftmeijer/vim-numbertoggle' " Toggles between hybrid and absolute line numbers automaticallly 
@@ -185,9 +184,6 @@ set softtabstop=2
 set shiftwidth=2 "2 space for << and >>
 set smarttab " delete tabstop spaces in the begining of aline on backspace instead of 1 space
 set expandtab " insert space characters whenever the tab key is pressed
-set foldmethod=syntax
-" set foldmethod=indent
-set nofoldenable
 
 " set autoindent " copy indent for new line from previos
 set smartindent
