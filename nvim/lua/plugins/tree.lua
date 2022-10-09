@@ -1,8 +1,6 @@
-require('keybindings/utils')
+local keymap = vim.api.nvim_set_keymap
 
-local cmd = vim.api.nvim_command
-
-nm('<C-n>', function() cmd('NvimTreeToggle') end)
+keymap('n', '<C-n>', ':NvimTreeToggle<CR>', { silent = true })
 
 require('nvim-tree').setup({
   view = {

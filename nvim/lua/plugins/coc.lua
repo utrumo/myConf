@@ -198,3 +198,8 @@ vim.g.coc_global_extensions = {
   'coc-python',
   'coc-lua',
 }
+
+-- fix for coc-yaml
+vim.g.coc_filetype_map = {
+  ['yaml.ansible'] = 'yaml',
+}

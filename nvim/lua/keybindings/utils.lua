@@ -1,5 +1,6 @@
 -- Алиас для быстрого доступа к методу установки горячих клавиш
 local map = vim.api.nvim_set_keymap
+local keyset = vim.keymap.set
 
 --[[
 Метод для установки горячих клавиш (normal)
@@ -7,11 +8,9 @@ key - {string} Строка с горячей клавишей
 command - {string} Команда
 ]]
 --
-function nm(key, command)
-  local keyset = vim.keymap.set
-  -- map('n', key, command, {noremap = true})
-  keyset('n', key, command, { noremap = true })
-end
+function nm(key, command) map('n', key, command, { noremap = true }) end
+
+function nmCb(key, cb) keyset('n', key, cb, { noremap = true }) end
 
 --[[
 Метод для установки горячих клавиш (input)

@@ -37,6 +37,10 @@ return require('packer').startup(function(use)
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function() require('plugins/lualine') end,
   })
+  use({
+    'easymotion/vim-easymotion',
+    config = function() require('plugins/easymotion') end,
+  })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

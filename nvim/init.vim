@@ -8,7 +8,6 @@ endif
 " Vim plugin manager vim-plug To install new package :PlugInstall
 call plug#begin()
 Plug 'scrooloose/nerdcommenter' " Для быстрого комментирования
-Plug 'easymotion/vim-easymotion' " Крутая навигация по проекту
 
 Plug 'Shougo/neco-vim'
 Plug 'neoclide/coc-neco'
@@ -78,10 +77,6 @@ function! NERDCommenter_after()
   endif
 endfunction
 
-" vim-closetag
-" let g:closetag_filenames = '*.html,*.js,*.jsx,*.ts,*.tsx,*.php'
-" let g:closetag_close_shortcut = '<leader>>'
-
 " Show special / NonText keys 
 " with end of line symbol
 " set list listchars=eol:↲,tab:»\ ,space:·,trail:•,extends:›,precedes:‹,conceal:*,nbsp:␣
@@ -94,23 +89,6 @@ let &showbreak='↳ '
 let g:rooter_patterns = ['.git/']
 let g:rooter_manual_only = 1
 
-" fzf
-" function! FindInNodeModulesAndIsert()
-"   let nodeModulesPath = FindRootDirectory() . "/node_modules"
-"   if !isdirectory(nodeModulesPath)
-"     echo nodeModulesPath . " is not found"
-"     return
-"   endif
-"   :call fzf#vim#complete({
-"   \ 'source': "find \| sed 's/^..//'",
-"   \ "reducer": {lines -> join(lines, ', ')},
-"   \ "options": "--multi --reverse",
-"   \ "dir": nodeModulesPath,
-"   \ "down": 20,
-"   \})
-" endfunction
-" inoremap <Leader>nm <C-O>:call FindInNodeModulesAndIsert()<CR>
-"
 function! s:FindInProject()
   :call fzf#run(fzf#wrap({
   \ "dir": FindRootDirectory(),
@@ -213,106 +191,11 @@ nnoremap <LEADER>pi :PlugInstall<CR>
 nnoremap <LEADER>pu :PlugUpdate<CR>
 nnoremap <LEADER>pc :PlugClean<CR>
 
-" Hack for lit-element / lit-html
-nnoremap <silent><C-h> :call <SID>detectRegionFileType()<CR>
-function! s:detectRegionFileType()
-  let fileExt = expand('%:e')
-  if fileExt != 'js'
-    echo 'not a js file'
-    return
-  else
-    echo 'filetype detected'
-  endif
-
-  if searchpair('css`', '', '\(css\)\@<!`', 'bnW') ||
-  \  searchpair('<style', '', '</style>', 'bnW')
-    set ft=css
-  elseif searchpair('html`', '', '\(html\)\@<!`', 'bnW')
-    set ft=html
-  else
-    set ft=javascript
-  endif
-endfunction
-
 " Resize splits on window resize
-au VimResized * wincmd =
-
-" Disables built-in gutentags
-" let g:gutentags_enabled = 0
-
-" nnoremap <silent> <leader>ef :CocCommand eslint.executeAutofix<CR>
-" \ :execute "!npx eslint --fix " . expand('%')<bar>
-" \ :silent execute "!eslint_d --fix " . expand('%')<bar>
-
-" :silent execute "!eslint_d --fix " . expand('%')
-"  autocmd FileType javascript autocmd BufWritePost <buffer> noautocmd call FormatByEslint()
-function! FormatByEslint()
-  :silent execute "!eslint_d --fix " . expand('%:p')
-  :edit
-  :silent CocRestart
-  :sign unplace *
-  :echon " fixed"
-endfunction
-
-" map eslint autofix
-nnoremap <leader>ef
- \ :write<bar>
- \ :call FormatByEslint()<CR>
-
-" map stylelint autofix
-"    \ :execute "!npx stylelint --fix " . expand('%')<bar>
-nnoremap <leader>sf
-  \ :write<bar>
-  \ :silent execute "!npx stylelint --fix " . expand('%')<bar>
-  \ :edit<bar>
-  \ :echon "fixed"<CR>
-
-nnoremap <leader>pf
-  \ :write<bar>
-  \ :silent execute "!npx prettier -w " . expand('%')<bar>
-  \ :edit<bar>
-  \ :echon "fixed"<CR>
-
-" fix highlighting for files with multiple languages (like vue)
-" autocmd FileType vue syntax sync fromstart
-" autocmd FileType javascript syntax sync fromstart
-
-" fix for coc-yaml
- let g:coc_filetype_map = {
- \ 'yaml.ansible': 'yaml',
- \ }
-
- " Reset coc hotkey
-nmap <Leader>ccr
-  \ :sign unplace *<CR>
-  \ :CocRestart<CR>
-
-" solve problem with freezed signs
-" :nmap <silent> <leader>u :sign unplace *<CR>
-"
-:autocmd! BufWritePre *.js,*.jsx,*.ts,*.tsx,*.scss call CocAction('format')
+autocmd VimResized * wincmd =
 
 " nvim-tree
 autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
 
 " Show commits for every source line (tpope/vim-fugitive)
 nnoremap <Leader>gb :Git blame<CR> 
-
-" vim-easymotion
-" default leader is <Leader><Leader>
-" default shortcats is <Leader>s, <Leader>gE.
-
-" <Leader>f{char} to move to {char}
-map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
-
-" <Leader>s{char}{char} to move to {char}{char}
-nmap <Leader>s <Plug>(easymotion-overwin-f2)
-
-" Move to line
-map <Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
-
-" Move to word
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
