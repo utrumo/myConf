@@ -14,7 +14,7 @@ local keyset = vim.keymap.set
 -- Auto complete
 function _G.check_back_space()
   local col = vim.fn.col('.') - 1
-  return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s')
+  return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
 end
 
 -- Use tab for trigger completion with characters ahead and navigate.
@@ -22,7 +22,7 @@ end
 -- no select by `"suggest.noselect": true` in your configuration file.
 -- NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 -- other plugin before putting this into your config.
-local opts = { silent = true, noremap = true, expr = true }
+local opts = { silent = true, noremap = true, expr = true, replace_keycodes = false }
 keyset(
   'i',
   '<TAB>',
