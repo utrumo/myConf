@@ -1,5 +1,5 @@
 lua << EOF
-require('plugins/plugins')
+require('plugin-list')
 EOF
 
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
