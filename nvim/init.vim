@@ -1,49 +1,6 @@
-" Install vim-plug if not exist
-if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-   !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-" Vim plugin manager vim-plug To install new package :PlugInstall
-call plug#begin()
-Plug 'Shougo/neco-vim'
-Plug 'neoclide/coc-neco'
-
-Plug 'airblade/vim-gitgutter' " Добавляет отображение изменённых в коммитах строчках
-Plug 'tpope/vim-fugitive'
-Plug 'machakann/vim-sandwich'
-Plug 'alvan/vim-closetag' " Autoclose html tags by >
-Plug 'mattn/emmet-vim'
-Plug 'jiangmiao/auto-pairs' " Добавляет закрывающие скобки
-Plug 'editorconfig/editorconfig-vim' " to use .editorconfig
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-Plug 'junegunn/fzf.vim'
-Plug 'airblade/vim-rooter' 
-Plug 'tpope/vim-eunuch' " Adds :Move command
-Plug 'qpkorr/vim-bufkill'
-Plug 'jeffkreeftmeijer/vim-numbertoggle' " Toggles between hybrid and absolute line numbers automaticallly 
-Plug 'wesQ3/vim-windowswap'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'voldikss/vim-floaterm', { 'do': 'pip install neovim-remote' }
-call plug#end()
-
 lua << EOF
 require('plugins/plugins')
 EOF
-
-" vim-floaterm
-" Configuration example
-let g:floaterm_keymap_new    = '<F7>'
-let g:floaterm_keymap_prev   = '<F8>'
-let g:floaterm_keymap_next   = '<F9>'
-let g:floaterm_keymap_toggle = '<F12>'
-command! Vifm FloatermNew vifm
-
-" markdown
-let g:mkdp_auto_start = 1
-" markdown
 
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
 autocmd FileChangedShellPost *
@@ -61,7 +18,7 @@ let &showbreak='↳ '
 
 " vim-rooter
 " let g:rooter_patterns = ['Vagrantfile', 'node_modules/', '.git/']
-let g:rooter_patterns = ['.git/']
+let g:rooter_patterns = ['.git']
 let g:rooter_manual_only = 1
 
 function! s:FindInProject()
@@ -162,12 +119,11 @@ nnoremap <Leader>cr :source $MYVIMRC<CR>
 nnoremap <LEADER>cco :CocConfig<CR>
 nnoremap <LEADER>col :CocOpenLog<CR>
 nnoremap <LEADER>ci :CocInfo<CR>
-nnoremap <LEADER>pi :PlugInstall<CR>
-nnoremap <LEADER>pu :PlugUpdate<CR>
-nnoremap <LEADER>pc :PlugClean<CR>
+nnoremap <LEADER>pi :PackerInstall<CR>
+nnoremap <LEADER>pu :PackerSync<CR>
+nnoremap <LEADER>cpu :CocUpdate<CR>
+nnoremap <LEADER>tpu :TSUpdate<CR>
+nnoremap <LEADER>pc :PackerClean<CR>
 
 " Resize splits on window resize
 autocmd VimResized * wincmd =
-
-" Show commits for every source line (tpope/vim-fugitive)
-nnoremap <Leader>gb :Git blame<CR> 

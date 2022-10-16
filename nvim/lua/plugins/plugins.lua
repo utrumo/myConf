@@ -20,6 +20,7 @@ local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
   use('wbthomason/packer.nvim')
+  use({ 'neoclide/coc-neco', requires = { 'Shougo/neco-vim' } })
   use({ 'neoclide/coc.nvim', branch = 'release', config = function() require('plugins/coc') end })
   use({
     'nvim-treesitter/nvim-treesitter',
@@ -44,6 +45,30 @@ return require('packer').startup(function(use)
   use({
     'scrooloose/nerdcommenter',
     config = function() require('plugins/nerdcommenter') end,
+  })
+  -- Добавляет отображение изменённых в коммитах строчках
+  use('airblade/vim-gitgutter')
+  use({ 'tpope/vim-fugitive', config = function() require('plugins/vim-fugitive') end })
+  use('machakann/vim-sandwich')
+  -- Добавляет закрывающие скобки
+  use('jiangmiao/auto-pairs')
+  -- to use .editorconfig
+  use('editorconfig/editorconfig-vim')
+  -- Adds :Move command
+  use('tpope/vim-eunuch')
+  use('qpkorr/vim-bufkill')
+  -- Toggles between hybrid and absolute line numbers automaticallly
+  use('jeffkreeftmeijer/vim-numbertoggle')
+  use('wesQ3/vim-windowswap')
+  use({
+    'iamcco/markdown-preview.nvim',
+    run = function() vim.fn['mkdp#util#install']() end,
+    config = function() require('plugins/markdown-preview') end,
+  })
+  use({ 'voldikss/vim-floaterm', config = function() require('plugins/floaterm') end })
+  use({
+    'junegunn/fzf.vim',
+    requires = { { 'junegunn/fzf', run = ':call fzf#install()' }, 'airblade/vim-rooter' },
   })
 
   -- Automatically set up your configuration after cloning packer.nvim
