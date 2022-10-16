@@ -72,7 +72,13 @@ return require('packer').startup(function(use)
   use({ 'voldikss/vim-floaterm', config = function() require('plugin-configs/floaterm') end })
   use({
     'junegunn/fzf.vim',
-    requires = { { 'junegunn/fzf', run = ':call fzf#install()' }, 'airblade/vim-rooter' },
+    requires = {
+      { 'junegunn/fzf', run = ':call fzf#install()' },
+      {
+        'airblade/vim-rooter',
+        config = function() require('plugin-configs/vim-rooter') end,
+      },
+    },
   })
 
   -- Automatically set up your configuration after cloning packer.nvim

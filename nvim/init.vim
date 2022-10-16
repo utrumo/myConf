@@ -1,6 +1,4 @@
-lua << EOF
-require('plugin-list')
-EOF
+:lua require('plugin-list')
 
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
 autocmd FileChangedShellPost *
@@ -15,11 +13,6 @@ autocmd! BufWritePost .vimrc,init.vim nested source $MYVIMRC
 " without end of line symbol
 set list listchars=tab:»\ ,space:·,trail:•,extends:›,precedes:‹,conceal:*,nbsp:␣
 let &showbreak='↳ '
-
-" vim-rooter
-" let g:rooter_patterns = ['Vagrantfile', 'node_modules/', '.git/']
-let g:rooter_patterns = ['.git']
-let g:rooter_manual_only = 1
 
 function! s:FindInProject()
   :call fzf#run(fzf#wrap({
@@ -61,8 +54,8 @@ function! s:change_dir(dir)
   " let source = 'find -type d -not \( -name .git -prune -o -name node_modules -prune \)'
   let source = 'find -type d -not \( -name .git -prune \)'
   call fzf#run({
-    \ 'dir': a:dir,
-    \ 'source': source,
+        \ 'dir': a:dir,
+        \ 'source': source,
     \ 'sink': {line -> s:processLine(line)}
     \ })
 endfunction
