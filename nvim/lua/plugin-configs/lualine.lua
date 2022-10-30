@@ -9,7 +9,7 @@ require('lualine').setup({
       'filename',
       {
         'g:coc_status',
-        fmt = function(str) return str:gsub('Prettier', ''):gsub('  TSC.*', '') end,
+        fmt = function(str) return str:gsub('Prettier', ''):gsub('TSC %S+', ''):match('^%s*(.-)%s*$') end,
       },
     },
   },
