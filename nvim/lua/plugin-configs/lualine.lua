@@ -4,7 +4,13 @@ require('lualine').setup({
       { 'branch', fmt = function(str) return str:sub(1, 8) end },
       'diff',
       'diagnostics',
-      'g:coc_status',
+    },
+    lualine_c = {
+      'filename',
+      {
+        'g:coc_status',
+        fmt = function(str) return str:gsub('Prettier', ''):gsub('  TSC.*', '') end,
+      },
     },
   },
 })
