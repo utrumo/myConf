@@ -1,5 +1,10 @@
 require('lualine').setup({
   sections = {
-    lualine_c = { 'filename', 'diff', 'g:coc_status' },
+    lualine_b = {
+      { 'branch', fmt = function(str) return str:sub(1, 8) end },
+      'diff',
+      'diagnostics',
+      'g:coc_status',
+    },
   },
 })
