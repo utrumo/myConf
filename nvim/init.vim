@@ -40,7 +40,6 @@ nnoremap <Leader>; :Buffers<CR>
 nnoremap <Leader>t :Files<CR>
 nnoremap <silent><Leader>nm :call <SID>findIn("/node_modules")<CR>
 " nmap <silent><Leader>rd :execute 'Files' FindRootDirectory().'/src'<CR>
-" nmap <silent><Leader>ts :call <SID>findInNodeModules("/src")<CR>
 nnoremap <Leader>a :Rg!<CR>
 nnoremap <Leader>c :Colors<CR>
 nnoremap <Leader>m :Marks<CR>

@@ -73,7 +73,7 @@ return require('packer').startup(function(use)
   use({
     'junegunn/fzf.vim',
     requires = {
-      { 'junegunn/fzf', run = ':call fzf#install()' },
+      { 'junegunn/fzf', run = './install --all' },
       {
         'airblade/vim-rooter',
         config = function() require('plugin-configs/vim-rooter') end,
