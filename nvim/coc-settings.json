@@ -1,100 +1,12 @@
 {
-  // "json.schemas": [
-  //   {
-  //     "fileMatch": ["swagger.json"],
-  //     "url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v2.0/schema.json"
-  //   }
-  // ],
-  // "diagnostic.signOffset": 9999999,
   "css.validate": false,
   "less.validate": false,
   "scss.validate": false,
   "wxss.validate": false,
-  // "stylelintplus.cssInJs": true,
+  "coc.preferences.formatOnSave": true,
   "stylelintplus.autoFixOnSave": true,
-  // "prettier.eslintIntegration": false,
-  // "prettier.stylelintIntegration": false,
-  /*
-  "prettier.disableLanguages": [
-    "scss",
-    "javascript",
-    "javascript.tsx",
-    "javascriptreact",
-    "typescript",
-    "typescript.tsx",
-    "typescriptreact"
-  ],
-  "prettier.arrowParens": "always",
-  "prettier.bracketSpacing": true,
-  "prettier.htmlWhitespaceSensitivity": "css",
-  "prettier.jsxBracketSameLine": false,
-  "prettier.jsxSingleQuote": false,
-  "prettier.printWidth": 100,
-  "prettier.proseWrap": "preserve",
-  "prettier.semi": true,
-  "prettier.singleQuote": true,
-  "prettier.tabWidth": 2,
-  "prettier.trailingComma": "all",
-  "prettier.useTabs": false,
-  */
-  "coc.preferences.formatOnSaveFiletypes": [
-    "json",
-    "yaml",
-    "markdown",
-    "html",
-    "scss",
-    "javascript",
-    "javascript.tsx",
-    "javascriptreact",
-    "typescript",
-    "typescript.tsx",
-    "typescriptreact",
-    "lua"
-  ],
-  "javascript.suggestionActions.enabled": false,
-  "diagnostic-languageserver.linters": {
-    "eslint_d": {
-      "command": "eslint_d",
-      "rootPatterns": ["node_modules"],
-      "debounce": 100,
-      "args": [
-        "--stdin",
-        "--stdin-filename",
-        "%filepath",
-        "--format",
-        "json",
-        "--cache"
-      ],
-      "sourceName": "eslint",
-      "parseJson": {
-        "errorsRoot": "[0].messages",
-        "line": "line",
-        "column": "column",
-        "endLine": "endLine",
-        "endColumn": "endColumn",
-        "message": "${message} [${ruleId}]",
-        "security": "severity"
-      },
-      "securities": {
-        "2": "error",
-        "1": "warning"
-      }
-    }
-  },
+  "eslint.autoFixOnSave": false,
   "diagnostic-languageserver.formatters": {
-    "eslint_d": {
-      "command": "eslint_d",
-      "rootPatterns": [".git"],
-      "args": [
-        "--stdin",
-        "--stdin-filename",
-        "%filepath",
-        "--fix",
-        "--fix-to-stdout"
-      ],
-      "isStderr": false,
-      "isStdout": true
-    },
     "stylua": {
       "command": "stylua",
       "args": [
@@ -106,21 +18,7 @@
       ]
     }
   },
-  "diagnostic-languageserver.filetypes": {
-    "javascript": "eslint_d",
-    "javascript.tsx": "eslint_d",
-    "javascriptreact": "eslint_d",
-    "typescript": "eslint_d",
-    "typescript.tsx": "eslint_d",
-    "typescriptreact": "eslint_d"
-  },
   "diagnostic-languageserver.formatFiletypes": {
-    "javascript": "eslint_d",
-    "javascript.tsx": "eslint_d",
-    "javascriptreact": "eslint_d",
-    "typescript": "eslint_d",
-    "typescript.tsx": "eslint_d",
-    "typescriptreact": "eslint_d",
     "lua": "stylua"
   }
 }

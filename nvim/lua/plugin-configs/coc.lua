@@ -183,6 +183,7 @@ keyset('n', '<space>p', ':<C-u>CocListResume<cr>', opts)
 -- Custom
 vim.g.coc_global_extensions = {
   'coc-prettier',
+  'coc-eslint',
   'coc-json',
   'coc-tsserver',
   'coc-css',
@@ -203,3 +204,12 @@ vim.g.coc_global_extensions = {
 vim.g.coc_filetype_map = {
   ['yaml.ansible'] = 'yaml',
 }
+
+-- Runs eslint on save with prettier
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = { '*.{js,jsx,ts,tsx}' },
+  callback = function()
+    vim.fn.CocAction('runCommand', 'eslint.executeAutofix')
+    vim.cmd([[sleep 100m]])
+  end,
+})
