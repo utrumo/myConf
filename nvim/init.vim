@@ -98,7 +98,7 @@ set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
 
-set scrolloff=10
+set scrolloff=5
 
 set mouse=a
 tnoremap <Esc> <C-\><C-n>
