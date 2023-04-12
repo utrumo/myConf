@@ -1,4 +1,4 @@
-:lua require('plugin-list')
+:lua require('config/plugin-list')
 
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
 autocmd FileChangedShellPost *

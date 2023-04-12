@@ -17,6 +17,7 @@ local ensure_packer = function()
 end
 
 local packer_bootstrap = ensure_packer()
+CurrentDir = (...):match('(.*[/\\])')
 
 return require('packer').startup(function(use)
   use('wbthomason/packer.nvim')
@@ -24,35 +25,44 @@ return require('packer').startup(function(use)
   use({
     'neoclide/coc.nvim',
     branch = 'release',
-    config = function() require('plugin-configs/coc') end,
+    config = function() require(CurrentDir .. 'plugin-configs/coc') end,
   })
   use({
     'nvim-treesitter/nvim-treesitter',
-    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
-    config = function() require('plugin-configs/treesitter') end,
+    run = function()
+      local tsUpdate = require('nvim-treesitter.install').update({ with_sync = true })
+      tsUpdate()
+    end,
+    config = function() require(CurrentDir .. 'plugin-configs/treesitter') end,
   })
-  use({ 'ellisonleao/gruvbox.nvim', config = function() require('plugin-configs/gruvbox') end })
+  use({
+    'ellisonleao/gruvbox.nvim',
+    config = function() require(CurrentDir .. 'plugin-configs/gruvbox') end,
+  })
   use({
     'kyazdani42/nvim-tree.lua',
     requires = { 'kyazdani42/nvim-web-devicons' },
-    config = function() require('plugin-configs/tree') end,
+    config = function() require(CurrentDir .. 'plugin-configs/tree') end,
   })
   use({
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-    config = function() require('plugin-configs/lualine') end,
+    config = function() require(CurrentDir .. 'plugin-configs/lualine') end,
   })
   use({
     'easymotion/vim-easymotion',
-    config = function() require('plugin-configs/easymotion') end,
+    config = function() require(CurrentDir .. 'plugin-configs/easymotion') end,
   })
   use({
     'scrooloose/nerdcommenter',
-    config = function() require('plugin-configs/nerdcommenter') end,
+    config = function() require(CurrentDir .. 'plugin-configs/nerdcommenter') end,
   })
   -- Добавляет отображение изменённых в коммитах строчках
   use('airblade/vim-gitgutter')
-  use({ 'tpope/vim-fugitive', config = function() require('plugin-configs/vim-fugitive') end })
+  use({
+    'tpope/vim-fugitive',
+    config = function() require(CurrentDir .. 'plugin-configs/vim-fugitive') end,
+  })
   use('machakann/vim-sandwich')
   -- Добавляет закрывающие скобки
   use('jiangmiao/auto-pairs')
@@ -67,16 +77,19 @@ return require('packer').startup(function(use)
   use({
     'iamcco/markdown-preview.nvim',
     run = function() vim.fn['mkdp#util#install']() end,
-    config = function() require('plugin-configs/markdown-preview') end,
+    config = function() require(CurrentDir .. 'plugin-configs/markdown-preview') end,
   })
-  use({ 'voldikss/vim-floaterm', config = function() require('plugin-configs/floaterm') end })
+  use({
+    'voldikss/vim-floaterm',
+    config = function() require(CurrentDir .. 'plugin-configs/floaterm') end,
+  })
   use({
     'junegunn/fzf.vim',
     requires = {
       { 'junegunn/fzf', run = './install --all' },
       {
         'airblade/vim-rooter',
-        config = function() require('plugin-configs/vim-rooter') end,
+        config = function() require(CurrentDir .. 'plugin-configs/vim-rooter') end,
       },
     },
   })
