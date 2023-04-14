@@ -7,6 +7,7 @@ local sourceNames = {
   'prettierd',
   'eslint_d',
 }
+-- for check run :lua print(require("null-ls.client").get_client().config.root_dir)
 local rootDir = nullLsUtils.root_pattern('yarn.lock', '.git')
 
 local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
