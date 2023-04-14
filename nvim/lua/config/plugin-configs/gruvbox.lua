@@ -6,7 +6,8 @@ local isOn = false
 
 local function toggleBackground()
   if isOn == false then
-    vim.cmd([[highlight Normal guibg=none]])
+    vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+    vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
     isOn = true
   else
     vim.cmd([[syntax reset]])
