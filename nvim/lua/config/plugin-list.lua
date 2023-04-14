@@ -1,100 +1,140 @@
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({
-      'git',
-      'clone',
-      '--depth',
-      '1',
-      'https://github.com/wbthomason/packer.nvim',
-      install_path,
-    })
-    vim.cmd([[packadd packer.nvim]])
-    return true
-  end
-  return false
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
+    lazypath,
+  })
 end
 
-local packer_bootstrap = ensure_packer()
+vim.opt.rtp:prepend(lazypath)
 CurrentDir = (...):match('(.*[/\\])')
 
-return require('packer').startup(function(use)
-  use('wbthomason/packer.nvim')
-  use({ 'neoclide/coc-neco', requires = { 'Shougo/neco-vim' } })
-  use({
-    'neoclide/coc.nvim',
-    branch = 'release',
-    config = function() require(CurrentDir .. 'plugin-configs/coc') end,
-  })
-  use({
+require('lazy').setup({
+  {
+    'williamboman/mason.nvim',
+    build = ':MasonUpdate',
+    config = function() require(CurrentDir .. 'plugin-configs/mason') end,
+  },
+  {
+    'williamboman/mason-lspconfig.nvim',
+    config = function() require(CurrentDir .. 'plugin-configs/mason-lspconfig') end,
+  },
+  {
+    'neovim/nvim-lspconfig',
+    config = function() require(CurrentDir .. 'plugin-configs/lspconfig') end,
+  },
+
+  { 'hrsh7th/cmp-nvim-lsp' },
+  { 'hrsh7th/cmp-buffer' },
+  { 'hrsh7th/cmp-path' },
+  { 'hrsh7th/cmp-cmdline' },
+  { 'hrsh7th/cmp-vsnip' },
+  { 'hrsh7th/vim-vsnip' },
+  {
+    'hrsh7th/nvim-cmp',
+    config = function() require(CurrentDir .. 'plugin-configs/cmp') end,
+  },
+
+  { 'neoclide/coc-neco', dependencies = { 'Shougo/neco-vim' } },
+  -- {
+  -- 'neoclide/coc.nvim',
+  -- branch = 'release',
+  -- config = function() require(CurrentDir .. 'plugin-configs/coc') end,
+  -- },
+  {
     'nvim-treesitter/nvim-treesitter',
-    run = function()
+    build = function()
       local tsUpdate = require('nvim-treesitter.install').update({ with_sync = true })
       tsUpdate()
     end,
     config = function() require(CurrentDir .. 'plugin-configs/treesitter') end,
-  })
-  use({
+  },
+  {
     'ellisonleao/gruvbox.nvim',
     config = function() require(CurrentDir .. 'plugin-configs/gruvbox') end,
-  })
-  use({
+  },
+  {
     'kyazdani42/nvim-tree.lua',
-    requires = { 'kyazdani42/nvim-web-devicons' },
+    dependencies = { 'kyazdani42/nvim-web-devicons' },
     config = function() require(CurrentDir .. 'plugin-configs/tree') end,
-  })
-  use({
+  },
+
+  {
+    'glepnir/lspsaga.nvim',
+    lazy = true,
+    branch = 'main',
+    event = 'LspAttach',
+    config = function() require(CurrentDir .. 'plugin-configs/lspsaga') end,
+    -- dependencies = {
+    -- {"nvim-tree/nvim-web-devicons"},
+    -- --Please make sure you install markdown and markdown_inline parser
+    -- {"nvim-treesitter/nvim-treesitter"}
+    -- }
+  },
+
+  {
+    'jay-babu/mason-null-ls.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      'williamboman/mason.nvim',
+      'jose-elias-alvarez/null-ls.nvim',
+      'nvim-lua/plenary.nvim',
+    },
+    config = function() require(CurrentDir .. 'plugin-configs/mason-null-ls') end,
+  },
+
+  {
     'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true },
     config = function() require(CurrentDir .. 'plugin-configs/lualine') end,
-  })
-  use({
+  },
+  {
     'easymotion/vim-easymotion',
     config = function() require(CurrentDir .. 'plugin-configs/easymotion') end,
-  })
-  use({
+  },
+  {
     'scrooloose/nerdcommenter',
     config = function() require(CurrentDir .. 'plugin-configs/nerdcommenter') end,
-  })
+  },
   -- Добавляет отображение изменённых в коммитах строчках
-  use('airblade/vim-gitgutter')
-  use({
+  'airblade/vim-gitgutter',
+  {
     'tpope/vim-fugitive',
     config = function() require(CurrentDir .. 'plugin-configs/vim-fugitive') end,
-  })
-  use('machakann/vim-sandwich')
+  },
+  'machakann/vim-sandwich',
   -- Добавляет закрывающие скобки
-  use('jiangmiao/auto-pairs')
+  'jiangmiao/auto-pairs',
   -- to use .editorconfig
-  use('editorconfig/editorconfig-vim')
+  'editorconfig/editorconfig-vim',
   -- Adds :Move command
-  use('tpope/vim-eunuch')
-  use('qpkorr/vim-bufkill')
+  'tpope/vim-eunuch',
+  'qpkorr/vim-bufkill',
   -- Toggles between hybrid and absolute line numbers automaticallly
-  use('jeffkreeftmeijer/vim-numbertoggle')
-  use('wesQ3/vim-windowswap')
-  use({
+  'jeffkreeftmeijer/vim-numbertoggle',
+  'wesQ3/vim-windowswap',
+  {
     'iamcco/markdown-preview.nvim',
-    run = function() vim.fn['mkdp#util#install']() end,
+    build = function() vim.fn['mkdp#util#install']() end,
     config = function() require(CurrentDir .. 'plugin-configs/markdown-preview') end,
-  })
-  use({
+  },
+  {
     'voldikss/vim-floaterm',
     config = function() require(CurrentDir .. 'plugin-configs/floaterm') end,
-  })
-  use({
+  },
+  {
     'junegunn/fzf.vim',
-    requires = {
-      { 'junegunn/fzf', run = './install --all' },
+    dependencies = {
+      { 'junegunn/fzf', build = './install --all' },
       {
         'airblade/vim-rooter',
         config = function() require(CurrentDir .. 'plugin-configs/vim-rooter') end,
       },
     },
-  })
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then require('packer').sync() end
-end)
+  },
+})
