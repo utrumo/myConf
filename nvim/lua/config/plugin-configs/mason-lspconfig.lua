@@ -18,20 +18,19 @@ local on_attach = function(client, bufnr)
   })
 end
 
-masonLspConfig
-  .setup({
-    ensure_installed = { 'vimls', 'lua_ls', 'tsserver' },
-  })
-  .setup_handlers({
-    -- The first entry (without a key) will be the default handler
-    -- and will be called for each installed server that doesn't have
-    -- a dedicated handler.
-    function(server_name) -- default handler (optional)
-      lspConfig[server_name].setup({
-        on_attach = on_attach,
-      })
-    end,
-    -- Next, you can provide a dedicated handler for specific servers.
-    -- For example, a handler override for the `rust_analyzer`:
-    -- ['rust_analyzer'] = function() require('rust-tools').setup({}) end,
-  })
+masonLspConfig.setup({
+  ensure_installed = { 'vimls', 'lua_ls', 'tsserver' },
+})
+masonLspConfig.setup_handlers({
+  -- The first entry (without a key) will be the default handler
+  -- and will be called for each installed server that doesn't have
+  -- a dedicated handler.
+  function(server_name) -- default handler (optional)
+    lspConfig[server_name].setup({
+      on_attach = on_attach,
+    })
+  end,
+  -- Next, you can provide a dedicated handler for specific servers.
+  -- For example, a handler override for the `rust_analyzer`:
+  -- ['rust_analyzer'] = function() require('rust-tools').setup({}) end,
+})
