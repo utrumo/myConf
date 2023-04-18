@@ -5,6 +5,9 @@ require('lspsaga').setup({
   hover = {
     max_width = 1,
   },
+  rename = {
+    in_select = false,
+  },
 })
 
 local keymap = vim.keymap.set
