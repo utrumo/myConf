@@ -35,6 +35,7 @@ require('lazy').setup({
   { 'hrsh7th/cmp-cmdline' },
   { 'hrsh7th/cmp-vsnip' },
   { 'hrsh7th/vim-vsnip' },
+  { 'hrsh7th/cmp-nvim-lua' },
   {
     'hrsh7th/nvim-cmp',
     config = function() require(CurrentDir .. 'plugin-configs/cmp') end,
