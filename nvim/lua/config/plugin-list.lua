@@ -17,81 +17,82 @@ CurrentDir = (...):match('(.*[/\\])')
 require('lazy').setup({
   {
     'williamboman/mason.nvim',
-    build = ':MasonUpdate',
     config = function() require(CurrentDir .. 'plugin-configs/mason') end,
+    build = ':MasonUpdate', -- :MasonUpdate updates registry contents
   },
+
   {
     'williamboman/mason-lspconfig.nvim',
+    dependencies = { 'neovim/nvim-lspconfig', },
     config = function() require(CurrentDir .. 'plugin-configs/mason-lspconfig') end,
   },
-  {
-    'neovim/nvim-lspconfig',
-    config = function() require(CurrentDir .. 'plugin-configs/lspconfig') end,
-  },
 
-  { 'hrsh7th/cmp-nvim-lsp' },
-  { 'hrsh7th/cmp-buffer' },
-  { 'hrsh7th/cmp-path' },
-  { 'hrsh7th/cmp-cmdline' },
-  { 'hrsh7th/cmp-vsnip' },
-  { 'hrsh7th/vim-vsnip' },
-  { 'hrsh7th/cmp-nvim-lua' },
-  {
-    'hrsh7th/nvim-cmp',
-    config = function() require(CurrentDir .. 'plugin-configs/cmp') end,
-  },
-
-  { 'neoclide/coc-neco', dependencies = { 'Shougo/neco-vim' } },
-  -- {
-  -- 'neoclide/coc.nvim',
-  -- branch = 'release',
-  -- config = function() require(CurrentDir .. 'plugin-configs/coc') end,
-  -- },
   {
     'nvim-treesitter/nvim-treesitter',
-    build = function()
-      local tsUpdate = require('nvim-treesitter.install').update({ with_sync = true })
-      tsUpdate()
-    end,
     config = function() require(CurrentDir .. 'plugin-configs/treesitter') end,
-  },
-  {
-    'ellisonleao/gruvbox.nvim',
-    config = function() require(CurrentDir .. 'plugin-configs/gruvbox') end,
-  },
-  {
-    'kyazdani42/nvim-tree.lua',
-    dependencies = { 'kyazdani42/nvim-web-devicons' },
-    config = function() require(CurrentDir .. 'plugin-configs/tree') end,
-  },
-
-  {
-    'glepnir/lspsaga.nvim',
-    lazy = true,
-    branch = 'main',
-    event = 'LspAttach',
-    config = function() require(CurrentDir .. 'plugin-configs/lspsaga') end,
-    -- dependencies = {
-    -- {"nvim-tree/nvim-web-devicons"},
-    -- --Please make sure you install markdown and markdown_inline parser
-    -- {"nvim-treesitter/nvim-treesitter"}
-    -- }
+    build = ':TSUpdate',
   },
 
   {
     'jay-babu/mason-null-ls.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
-      'williamboman/mason.nvim',
+      -- 'williamboman/mason.nvim',
       'jose-elias-alvarez/null-ls.nvim',
       'nvim-lua/plenary.nvim',
     },
     config = function() require(CurrentDir .. 'plugin-configs/mason-null-ls') end,
   },
 
+   "nvim-tree/nvim-web-devicons" ,
+
+  {
+    'nvimdev/lspsaga.nvim',
+    lazy = true,
+    branch = 'main',
+    event = 'LspAttach',
+    config = function() require(CurrentDir .. 'plugin-configs/lspsaga') end,
+    dependencies = {
+      -- { "nvim-tree/nvim-web-devicons" },
+      --Please make sure you install markdown and markdown_inline parser
+      -- { "nvim-treesitter/nvim-treesitter" }
+    }
+  },
+
+  {
+    'hrsh7th/nvim-cmp',
+    config = function() require(CurrentDir .. 'plugin-configs/cmp') end,
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'hrsh7th/cmp-vsnip',
+      'hrsh7th/vim-vsnip',
+      'hrsh7th/cmp-nvim-lua',
+    },
+  },
+
+  -- { 'neoclide/coc-neco', dependencies = { 'Shougo/neco-vim' } },
+  -- {
+  -- 'neoclide/coc.nvim',
+  -- branch = 'release',
+  -- config = function() require(CurrentDir .. 'plugin-configs/coc') end,
+  -- },
+
+  {
+    'ellisonleao/gruvbox.nvim',
+    config = function() require(CurrentDir .. 'plugin-configs/gruvbox') end,
+  },
+  {
+    'nvim-tree/nvim-tree.lua',
+    -- dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function() require(CurrentDir .. 'plugin-configs/tree') end,
+  },
+
   {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true },
+    -- dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
     config = function() require(CurrentDir .. 'plugin-configs/lualine') end,
   },
   {
@@ -121,8 +122,8 @@ require('lazy').setup({
   'wesQ3/vim-windowswap',
   {
     'iamcco/markdown-preview.nvim',
-    build = function() vim.fn['mkdp#util#install']() end,
     config = function() require(CurrentDir .. 'plugin-configs/markdown-preview') end,
+    build = function() vim.fn['mkdp#util#install']() end,
   },
   {
     'voldikss/vim-floaterm',

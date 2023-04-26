@@ -4,8 +4,8 @@ local masonnullLs = require('mason-null-ls')
 
 local sourceNames = {
   'stylua',
-  'eslint_d',
   'prettierd',
+  'eslint_d',
 }
 -- for check run :lua print(require("null-ls.client").get_client().config.root_dir)
 local rootDir = nullLsUtils.root_pattern('yarn.lock', '.git')
@@ -37,8 +37,8 @@ nullLs.setup({
   root_dir = rootDir,
 })
 
-for i, sourceName in ipairs(sourceNames) do
-  local source = nullLs.get_source(sourceName)
-  nullLs.deregister(sourceName)
-  nullLs.register(source)
-end
+-- for i, sourceName in ipairs(sourceNames) do
+-- local source = nullLs.get_source(sourceName)
+-- nullLs.deregister(sourceName)
+-- nullLs.register(source)
+-- end
