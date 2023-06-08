@@ -1,4 +1,4 @@
-local nullLs = require('null-ls')
+local null_ls = require('null-ls')
 local nullLsUtils = require('null-ls.utils')
 local masonnullLs = require('mason-null-ls')
 
@@ -32,13 +32,21 @@ masonnullLs.setup({
   handlers = {},
 })
 
-nullLs.setup({
+null_ls.setup({
   on_attach = onAttach,
   root_dir = rootDir,
+  sources = {
+    -- null_ls.builtins.formatting.eslint_d,
+    -- null_ls.builtins.code_actions.eslint_d,
+    -- null_ls.builtins.diagnostics.eslint_d,
+    -- null_ls.builtins.formatting.eslint,
+    -- null_ls.builtins.code_actions.eslint,
+    -- null_ls.builtins.diagnostics.eslint,
+  },
 })
 
 -- for i, sourceName in ipairs(sourceNames) do
--- local source = nullLs.get_source(sourceName)
--- nullLs.deregister(sourceName)
--- nullLs.register(source)
+-- local source = null_ls.get_source(sourceName)
+-- null_ls.deregister(sourceName)
+-- null_ls.register(source)
 -- end
