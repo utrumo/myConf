@@ -23,7 +23,7 @@ require('lazy').setup({
 
   {
     'williamboman/mason-lspconfig.nvim',
-    dependencies = { 'neovim/nvim-lspconfig', },
+    dependencies = { 'neovim/nvim-lspconfig' },
     config = function() require(CurrentDir .. 'plugin-configs/mason-lspconfig') end,
   },
 
@@ -44,7 +44,7 @@ require('lazy').setup({
     config = function() require(CurrentDir .. 'plugin-configs/mason-null-ls') end,
   },
 
-   "nvim-tree/nvim-web-devicons" ,
+  'nvim-tree/nvim-web-devicons',
 
   {
     'nvimdev/lspsaga.nvim',
@@ -56,7 +56,7 @@ require('lazy').setup({
       -- { "nvim-tree/nvim-web-devicons" },
       --Please make sure you install markdown and markdown_inline parser
       -- { "nvim-treesitter/nvim-treesitter" }
-    }
+    },
   },
 
   {
