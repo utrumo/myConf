@@ -1,6 +1,12 @@
 local masonLspConfig = require('mason-lspconfig')
 
-masonLspConfig.setup({ ensure_installed = { 'vimls', 'lua_ls', 'tsserver' } })
+masonLspConfig.setup({
+  ensure_installed = {
+    'vimls',
+    'lua_ls',
+    'tsserver',
+  }
+})
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer

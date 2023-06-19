@@ -4,8 +4,8 @@ local masonnullLs = require('mason-null-ls')
 
 local sourceNames = {
   'stylua',
-  -- 'prettierd',
-  --  'eslint_d',
+  'prettierd',
+  'eslint_d',
 }
 -- for check run :lua print(require("null-ls.client").get_client().config.root_dir)
 local rootDir = nullLsUtils.root_pattern('package-lock.json', 'yarn.lock', '.git')
@@ -36,6 +36,15 @@ null_ls.setup({
   on_attach = onAttach,
   root_dir = rootDir,
   sources = {
+    -- null_ls.builtins.formatting.eslint_d,
+    -- null_ls.builtins.code_actions.eslint_d,
+    -- null_ls.builtins.diagnostics.eslint_d,
+
+    -- null_ls.builtins.formatting.eslint,
+    -- null_ls.builtins.code_actions.eslint,
+    -- null_ls.builtins.diagnostics.eslint,
+
+    -- null_ls.builtins.formatting.prettier,
     -- null_ls.builtins.formatting.prettier.with({
     -- disabled_filetypes = {
     -- 'vue',
@@ -45,13 +54,6 @@ null_ls.setup({
     -- 'typescript',
     -- },
     -- }),
-    null_ls.builtins.formatting.prettier,
-    -- null_ls.builtins.formatting.eslint_d,
-    -- null_ls.builtins.code_actions.eslint_d,
-    -- null_ls.builtins.diagnostics.eslint_d,
-    null_ls.builtins.formatting.eslint,
-    null_ls.builtins.code_actions.eslint,
-    null_ls.builtins.diagnostics.eslint,
   },
 })
 
