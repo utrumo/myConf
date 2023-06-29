@@ -1,3 +1,5 @@
 " check /usr/share/vifm/vifmrc
 command evince evince *.{pdf} &
 filetype *.pdf evince &
+
+set number relativenumber
