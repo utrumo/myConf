@@ -6,7 +6,8 @@ SOURCE_COMMAND="[ -f $ROOT_PATH/.zshrc ] && source $ROOT_PATH/.zshrc"
 uninstall () {
   rm -rf \
     ~/.tmux.conf \
-    ~/.config/nvim
+    ~/.config/nvim \
+    ~/.vifm/vifmrc
 
   if grep -q "$SOURCE_COMMAND" ~/.zshrc; then
     grep -v "$SOURCE_COMMAND" ~/.zshrc > ~/tmp && mv ~/tmp ~/.zshrc
@@ -16,6 +17,7 @@ uninstall () {
 install () {
   if [ -f ~/.tmux.conf ] \
     || [ -f ~/.config/nvim ] \
+    || [-f ~/.vifm/vifmrc]
   ; then
     echo 'Config is exist!'
     exit
@@ -25,6 +27,10 @@ install () {
     fi
 
     ln -s "$ROOT_PATH/.tmux.conf" ~/.tmux.conf
+
+    mkdir -p ~/.vifm
+    ln -s "$ROOT_PATH/vifm/vifmrc" ~/.vifm/vifmrc
+
     ln -s "$ROOT_PATH/nvim" ~/.config/nvim
     nvim +PlugInstall +qall
     tmux
