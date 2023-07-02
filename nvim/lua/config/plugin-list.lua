@@ -34,6 +34,12 @@ require('lazy').setup({
   },
 
   {
+    'kevinhwang91/nvim-ufo',
+    dependencies = 'kevinhwang91/promise-async',
+    config = function() require(CurrentDir .. 'plugin-configs/nvim-ufo') end,
+  },
+
+  {
     'jay-babu/mason-null-ls.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
