@@ -1,6 +1,7 @@
 " check /usr/share/vifm/vifmrc
 command evince evince *.{pdf} &
 filetype *.pdf evince &
+filetype *.xlsx onlyoffice-desktopeditors &
 
 set number relativenumber
 
