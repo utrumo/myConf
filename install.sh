@@ -7,7 +7,8 @@ uninstall () {
   rm -rf \
     ~/.tmux.conf \
     ~/.config/nvim \
-    ~/.vifm/vifmrc
+    ~/.vifm/vifmrc \
+    ~/.profile
 
   if grep -q "$SOURCE_COMMAND" ~/.zshrc; then
     grep -v "$SOURCE_COMMAND" ~/.zshrc > ~/tmp && mv ~/tmp ~/.zshrc
@@ -32,6 +33,9 @@ install () {
     ln -s "$ROOT_PATH/vifm/vifmrc" ~/.vifm/vifmrc
 
     ln -s "$ROOT_PATH/nvim" ~/.config/nvim
+
+    ln -s "$ROOT_PATH/.profile" ~/.profile
+
     nvim +PlugInstall +qall
     tmux
   fi
