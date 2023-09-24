@@ -50,6 +50,13 @@ require('lazy').setup({
     config = function() require(CurrentDir .. 'plugin-configs/mason-null-ls') end,
   },
 
+  -- {
+  -- 'nvimdev/guard.nvim',
+  -- -- Builtin configuration, optional
+  -- dependencies = { 'nvimdev/guard-collection' },
+  -- config = function() require(CurrentDir .. 'plugin-configs/guard') end,
+  -- },
+
   'nvim-tree/nvim-web-devicons',
 
   {
