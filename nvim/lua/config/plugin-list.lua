@@ -15,6 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 CurrentDir = (...):match('(.*[/\\])')
 
 require('lazy').setup({
+  { 'lbrayner/vim-rzip' },
   {
     'williamboman/mason.nvim',
     config = function() require(CurrentDir .. 'plugin-configs/mason') end,
@@ -39,16 +40,16 @@ require('lazy').setup({
     config = function() require(CurrentDir .. 'plugin-configs/ufo') end,
   },
 
-  {
-    'jay-babu/mason-null-ls.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = {
-      -- 'williamboman/mason.nvim',
-      'jose-elias-alvarez/null-ls.nvim',
-      'nvim-lua/plenary.nvim',
-    },
-    config = function() require(CurrentDir .. 'plugin-configs/mason-null-ls') end,
-  },
+  -- {
+  -- 'jay-babu/mason-null-ls.nvim',
+  -- event = { 'BufReadPre', 'BufNewFile' },
+  -- dependencies = {
+  -- -- 'williamboman/mason.nvim',
+  -- 'jose-elias-alvarez/null-ls.nvim',
+  -- 'nvim-lua/plenary.nvim',
+  -- },
+  -- config = function() require(CurrentDir .. 'plugin-configs/mason-null-ls') end,
+  -- },
 
   -- {
   -- 'nvimdev/guard.nvim',
@@ -56,6 +57,13 @@ require('lazy').setup({
   -- dependencies = { 'nvimdev/guard-collection' },
   -- config = function() require(CurrentDir .. 'plugin-configs/guard') end,
   -- },
+
+  {
+    'creativenull/efmls-configs-nvim',
+    -- version = 'v1.x.x', -- version is optional, but recommended
+    dependencies = { 'neovim/nvim-lspconfig' },
+    config = function() require(CurrentDir .. 'plugin-configs/efmls-configs-nvim') end,
+  },
 
   'nvim-tree/nvim-web-devicons',
 

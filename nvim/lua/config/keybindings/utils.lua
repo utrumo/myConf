@@ -35,3 +35,9 @@ command - {string} Команда
 ]]
 --
 function tm(key, command) map('t', key, command, { noremap = true }) end
+
+local M = {}
+
+M.printInspect = function (value) print(vim.inspect(value)) end
+
+return M
