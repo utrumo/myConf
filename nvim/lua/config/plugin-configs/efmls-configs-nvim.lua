@@ -4,29 +4,37 @@ local printInspect = utils.printInspect
 -- Register linters and formatters per language
 local base_eslint_d_linter = require('efmls-configs.linters.eslint_d')
 local base_eslint_d_formatter = require('efmls-configs.formatters.eslint_d')
+-- local base_prettier_formatter = require('efmls-configs.formatters.prettier')
 local base_prettier_d_formatter = require('efmls-configs.formatters.prettier_d')
 
 local eslint_d_linter = vim.tbl_extend('force', base_eslint_d_linter, {
-  lintCommand = 'yarn eslint_d' .. base_eslint_d_linter.lintCommand,
+  lintCommand = 'yarn eslint_d --cache' .. base_eslint_d_linter.lintCommand,
 })
 local eslint_d_formatter = vim.tbl_extend('force', base_eslint_d_formatter, {
-  formatCommand = 'yarn eslint_d' .. base_eslint_d_formatter.formatCommand,
+  formatCommand = 'yarn eslint_d --cache' .. base_eslint_d_formatter.formatCommand,
 })
+-- local prettier_formatter = vim.tbl_extend('force', base_prettier_formatter, {
+  -- formatCommand = 'yarn prettier --cache --cache-location .prettiercache' .. base_prettier_formatter.formatCommand,
+-- })
 local prettier_d_formatter = vim.tbl_extend('force', base_prettier_d_formatter, {
   formatCommand = 'yarn prettierd' .. base_prettier_d_formatter.formatCommand,
 })
 
 -- local stylua = require('efmls-configs.formatters.stylua')
 
+local jsTools = {
+  eslint_d_linter,
+  eslint_d_formatter,
+  prettier_d_formatter,
+}
+
 local languages = {
-  typescript = {
-    eslint_d_linter,
-    eslint_d_formatter,
-    prettier_d_formatter,
-  },
+  typescript = jsTools,
+  javascript = jsTools,
+  jsonc = { prettier_d_formatter },
   -- lua = { stylua },
 }
--- printInspect(prettier_d_formatter)
+-- printInspect(prettier_formatter)
 
 -- Or use the defaults provided by this plugin
 -- check doc/SUPPORTED_LIST.md for the supported languages
