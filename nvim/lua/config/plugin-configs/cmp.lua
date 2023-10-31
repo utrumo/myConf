@@ -60,10 +60,13 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' },
   }),
 })
+local utils = require('config/keybindings/utils')
+local printInspect = utils.printInspect
 
--- Set up lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-require('lspconfig')['tsserver'].setup({
-  capabilities = capabilities,
+require('lspconfig').tsserver.setup({
+  -- on_attach = function(client)
+    -- printInspect(client.name)
+    -- client.server_capabilities.documentFormattingProvider = false
+    -- client.server_capabilities.documentRangeFormattingProvider = false
+  -- end
 })

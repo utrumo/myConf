@@ -160,4 +160,5 @@ require('lazy').setup({
       },
     },
   },
+  { 'towolf/vim-helm' },
 })
