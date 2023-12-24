@@ -7,7 +7,7 @@ masonLspConfig.setup({
     'vimls',
     'lua_ls',
     'tsserver',
-  }
+  },
 })
 
 -- Use LspAttach autocommand to only map the following keys
@@ -35,17 +35,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
     -- vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
     -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format({
-      -- server = 'efm-langserver',
-      async = false,
-      timeout_ms = 60000,
-      -- filter = function(client)
-        -- apply whatever logic you want (in this example, we'll only use null-ls)
-        -- return client.name == 'null-ls'
-        -- printInspect(client.name)
-
-        -- return true
-      -- end,
-    }) end, opts)
+    vim.keymap.set('n', '<space>f', function()
+      vim.lsp.buf.format({
+        timeout_ms = 60000,
+        filter = function(client) return client.name ~= 'tsserver' end,
+      })
+    end, opts)
   end,
 })
