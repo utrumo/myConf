@@ -36,6 +36,8 @@ local languages = {
   -- jsonc = { prettier_formatter },
   json = { prettier_d_formatter },
   jsonc = { prettier_d_formatter },
+  yaml = { prettier_d_formatter },
+  markdown = { prettier_d_formatter },
   lua = { stylua },
 }
 -- printInspect(base_eslint_d_linter)
