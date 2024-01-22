@@ -153,7 +153,7 @@ require('lazy').setup({
   {
     'junegunn/fzf.vim',
     dependencies = {
-      { 'junegunn/fzf', build = './install --all' },
+      { 'junegunn/fzf', build = './install --bin' },
       {
         'airblade/vim-rooter',
         config = function() require(CurrentDir .. 'plugin-configs/vim-rooter') end,
