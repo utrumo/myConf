@@ -1,5 +1,16 @@
 return {
   {
+    "antosha417/nvim-lsp-file-operations",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-neo-tree/neo-tree.nvim",
+    },
+    opts = {},
+    -- config = function()
+    --   require("lsp-file-operations").setup()
+    -- end,
+  },
+  {
     "nvim-neo-tree/neo-tree.nvim",
     opts = function(_, opts)
       opts.window = opts.window or {}
