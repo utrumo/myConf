@@ -11,11 +11,11 @@ return {
     },
     keys = {
       {
-        "<C-k>",
+        "<leader>k",
         function()
           vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
         end,
-        desc = "Toggle ",
+        desc = "Toggle inlay hints",
       },
     },
   },
