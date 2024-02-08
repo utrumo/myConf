@@ -2,7 +2,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
-      inlay_hints = { enabled = true },
+      inlay_hints = { enabled = false },
       servers = {
         tsserver = {
           autostart = false,
@@ -26,7 +26,7 @@ return {
       settings = {
         -- https://github.com/pmizio/typescript-tools.nvim?tab=readme-ov-file#%EF%B8%8F-configuration
         code_lens = "all",
-        -- disable_member_code_lens = false,
+        disable_member_code_lens = false,
 
         -- https://github.com/microsoft/TypeScript/blob/v5.3.3/src/server/protocol.ts#L3518
         tsserver_file_preferences = {
