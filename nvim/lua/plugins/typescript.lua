@@ -8,6 +8,7 @@ return {
       -- },
       servers = {
         vtsls = {
+          init_options = { hostInfo = "neovim" },
           settings = {
             typescript = {
               tsdk = "./.yarn/sdks/typescript/lib",
