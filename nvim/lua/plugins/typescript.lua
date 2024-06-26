@@ -3,9 +3,6 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       inlay_hints = { enabled = false },
-      -- format = {
-      --   async = true,
-      -- },
       servers = {
         vtsls = {
           init_options = { hostInfo = "neovim" },
@@ -17,7 +14,7 @@ return {
         },
       },
       setup = {
-        vtsls = function(_, opts)
+        vtsls = function(_, _opts)
           require("lazyvim.util").lsp.on_attach(function(client)
             if client.name == "vtsls" then
               client.server_capabilities.documentFormattingProvider = false
