@@ -1,3 +1,4 @@
 return {
-  { "lbrayner/vim-rzip" },
+  "lbrayner/vim-rzip",
+  -- disable = true,
 }
