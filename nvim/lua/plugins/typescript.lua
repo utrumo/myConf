@@ -9,6 +9,10 @@ return {
           settings = {
             typescript = {
               tsdk = "./.yarn/sdks/typescript/lib",
+              -- @link https://github.com/yioneko/vtsls/blob/main/packages/service/configuration.schema.json
+              inlayHints = {
+                parameterNames = { enabled = "all", suppressWhenArgumentMatchesName = false },
+              },
             },
           },
         },
