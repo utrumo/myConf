@@ -20,6 +20,7 @@ return {
       setup = {
         vtsls = function(_, _opts)
           require("lazyvim.util").lsp.on_attach(function(client)
+            -- disable vtsls formatting to prevent conflict with prettier
             if client.name == "vtsls" then
               client.server_capabilities.documentFormattingProvider = false
             end
@@ -36,6 +37,7 @@ return {
         prettier = {
           command = function(self, bufnr)
             local util = require("conform.util")
+            -- use project wersion of prettier instead builtin
             local cmd = util.find_executable({ ".yarn/sdks/prettier/bin/prettier.cjs" }, "")(self, bufnr)
 
             if cmd ~= "" then
