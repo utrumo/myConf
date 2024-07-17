@@ -27,17 +27,4 @@ return {
       -- :ConformInfo
     end,
   },
-  -- {
-  --   "nvim-treesitter/nvim-treesitter",
-  --   opts = function(_, opts)
-  --     for key, value in ipairs(opts.ensure_installed) do
-  --       -- fix for https://github.com/neovim/neovim/issues/29550
-  --       if value == "sql" then
-  --         table.remove(opts.ensure_installed, key)
-  --         break
-  --       end
-  --     end
-  --     -- print(vim.inspect(opts))
-  --   end,
-  -- },
 }
