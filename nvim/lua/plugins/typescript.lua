@@ -52,4 +52,24 @@ return {
       },
     },
   },
+  {
+    "mfussenegger/nvim-dap",
+    opts = function(_, _2)
+      -- fix for multiple errors like:
+      -- "Could not read source map for file:///home/devpa/Projects/work/zdravcity/backend/project/.yarn/cache/@babel-types-npm-7.22.19-693d56c802-2d69740e69.zip/node_modules/@babel/types/lib/definitions/typescript.js: ENOTDIR: not a directory, open '/home/devpa/Projects/work/zdravcity/backend/project/.yarn/cache/@babel-types-npm-7.22.19-693d56c802-2d69740e69.zip/node_modules/@babel/types/lib/definitions/typescript.js.map'"
+      -- @link https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/typescript.lua#L244
+      -- @link https://github.com/microsoft/vscode-js-debug/blob/main/OPTIONS.md#resolvesourcemaplocations-1
+      local dap = require("dap")
+      local js_filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" }
+      for _, language in ipairs(js_filetypes) do
+        dap.configurations[language][2].resolveSourceMapLocations = {
+          "**",
+          "!**/node_modules/**",
+          "!**/.yarn/cache/**",
+        }
+      end
+      -- print(vim.inspect(dap.configurations))
+      -- :messages
+    end,
+  },
 }
