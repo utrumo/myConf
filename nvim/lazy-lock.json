@@ -1,5 +1,5 @@
 {
-  "LazyVim": { "branch": "main", "commit": "71b26905822e81ec4a3842947d32a1b46c185948" },
+  "LazyVim": { "branch": "main", "commit": "bcbab77f0c5851e6d73f275f2d27c3baa4f6aa68" },
   "SchemaStore.nvim": { "branch": "main", "commit": "4abc1ab13ad5031049864cba0bfaec06a908e7e5" },
   "aerial.nvim": { "branch": "master", "commit": "e75a3df2c20b3a98c786f5e61587d74a7a6b61d6" },
   "bufferline.nvim": { "branch": "main", "commit": "0b2fd861eee7595015b6561dade52fb060be10c4" },
@@ -46,7 +46,7 @@
   "neoconf.nvim": { "branch": "main", "commit": "b1237a18d3c2dabbfa5954b74e3ea7040ff4273b" },
   "neogen": { "branch": "main", "commit": "4a2f68d3eae0018b04132f1d4590e51484043354" },
   "neotest": { "branch": "master", "commit": "32ff2ac21135a372a42b38ae131e531e64833bd3" },
-  "noice.nvim": { "branch": "main", "commit": "aaaef369f6060a5ba137f672c958bcc3b79404da" },
+  "noice.nvim": { "branch": "main", "commit": "d9328ef903168b6f52385a751eb384ae7e906c6f" },
   "nui.nvim": { "branch": "main", "commit": "61574ce6e60c815b0a0c4b5655b8486ba58089a1" },
   "nvim-ansible": { "branch": "main", "commit": "7b1b994e4267b4c99045ef2798f7c12f326c2247" },
   "nvim-cmp": { "branch": "main", "commit": "d818fd0624205b34e14888358037fb6f5dc51234" },
@@ -82,6 +82,6 @@
   "vim-illuminate": { "branch": "master", "commit": "5eeb7951fc630682c322e88a9bbdae5c224ff0aa" },
   "vim-repeat": { "branch": "master", "commit": "65846025c15494983dafe5e3b46c8f88ab2e9635" },
   "vim-rzip": { "branch": "master", "commit": "f65400fed27b27c7cff7ef8d428c4e5ff749bf28" },
-  "which-key.nvim": { "branch": "main", "commit": "c5e799388989fe1b87072d6188719b529d7421c5" },
+  "which-key.nvim": { "branch": "main", "commit": "058486e5b001f11ef48f180dd57ae3088f5bb6dc" },
   "yanky.nvim": { "branch": "main", "commit": "73215b77d22ebb179cef98e7e1235825431d10e4" }
 }
