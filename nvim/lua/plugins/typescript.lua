@@ -62,11 +62,17 @@ return {
       local dap = require("dap")
       local js_filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" }
       for _, language in ipairs(js_filetypes) do
-        dap.configurations[language][2].resolveSourceMapLocations = {
+        -- local launchFileConfig = dap.configurations[language][1]
+        local attachConfig = dap.configurations[language][2]
+
+        attachConfig.resolveSourceMapLocations = {
           "**",
           "!**/node_modules/**",
           "!**/.yarn/cache/**",
         }
+        -- https://github.com/microsoft/vscode-js-debug/blob/main/OPTIONS.md#node-attach
+        attachConfig.restart = true
+        attachConfig.continueOnAttach = true
       end
       -- print(vim.inspect(dap.configurations))
       -- :messages
