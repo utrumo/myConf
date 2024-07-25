@@ -1,34 +1,34 @@
-local cmpSources = nil
+local sources = nil
 local codeiumSource = nil
 
-local getToggleCodiumToggle = function(enableNotification)
+local getCodiumToggle = function(enableNotification)
   return function()
     local cmp = require("cmp")
 
-    if cmpSources == nil then
-      print("Error: cmpSources == nil")
+    if sources == nil then
+      print("Codeium: error - sources == nil")
       return
     end
 
     local codeumSourceIndex = nil
 
-    for i, value in ipairs(cmpSources) do
+    for i, value in ipairs(sources) do
       if value.name == "codeium" then
         codeumSourceIndex = i
       end
     end
 
     if codeumSourceIndex ~= nil then
-      codeiumSource = cmpSources[codeumSourceIndex]
-      table.remove(cmpSources, codeumSourceIndex)
-      cmp.config.sources(cmpSources)
+      codeiumSource = sources[codeumSourceIndex]
+      table.remove(sources, codeumSourceIndex)
+      cmp.config.sources(sources)
 
       if enableNotification then
         print("Codeium: disabled")
       end
     elseif codeiumSource then
-      table.insert(cmpSources, codeiumSource)
-      cmp.config.sources(cmpSources)
+      table.insert(sources, codeiumSource)
+      cmp.config.sources(sources)
 
       if enableNotification then
         print("Codeium: enabled")
@@ -41,13 +41,13 @@ return {
   "nvim-cmp",
   ---@param opts cmp.ConfigSchema
   opts = function(_, opts)
-    cmpSources = opts.sources
-    getToggleCodiumToggle(false)()
+    sources = opts.sources
+    getCodiumToggle(false)()
   end,
   keys = {
     {
       "<leader>ct",
-      getToggleCodiumToggle(true),
+      getCodiumToggle(true),
       desc = "Codeium toggle",
     },
   },
