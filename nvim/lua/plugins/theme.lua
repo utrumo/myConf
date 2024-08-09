@@ -1,7 +1,7 @@
 return {
   {
     "folke/tokyonight.nvim",
-    disable = true,
+    -- disable = true,
     opts = {
       transparent = true,
       styles = {
