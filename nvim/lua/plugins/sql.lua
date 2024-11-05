@@ -16,7 +16,7 @@ return {
 
       -- @link https://github.com/stevearc/conform.nvim/blob/master/lua/conform/formatters/sql_formatter.lua
       opts.formatters.sql_formatter = {
-        prepend_args = { "--config", vim.env.HOME .. "/sql-formatter.config.json" },
+        prepend_args = { "--config", vim.env.HOME .. "/sql-formatter.json" },
       }
 
       -- :lua print(vim.bo.filetype)
